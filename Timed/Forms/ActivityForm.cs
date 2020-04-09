@@ -119,6 +119,8 @@ namespace Timed.Forms
             //Show the tray Icon
             notifyIcon.Visible = true;
 
+            notifyIcon.Text = $"{projectName} - {activityName}";
+
             //Display the help (as appropriate, it fires one time per life of the application)
             if (!systemTrayHasPoppedUpHelp)
             {
