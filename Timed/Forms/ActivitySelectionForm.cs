@@ -320,7 +320,7 @@ namespace Timed.Forms
             }
 
             //Order by most recent
-            recentActivities = recentActivities.OrderBy(x => x.MostRecent).ToList();
+            recentActivities = recentActivities.OrderByDescending(x => x.MostRecent).ToList();
 
             listBoxPreviousActivities.Items.Clear();
 
