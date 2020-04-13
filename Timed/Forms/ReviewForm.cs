@@ -170,7 +170,6 @@ namespace Timed.Forms
                 //Summate the total hours
                 TimeSpan workedTimeSpan = new TimeSpan();
                 TimeSpan workedTimeSpanExcludingBreaks = new TimeSpan();
-                TimeSpan workedTimeSpanExcludingLunch = new TimeSpan();
                 //Go through each wrapper
                 foreach (var keyValuePair1 in projectTimeSpent)
                 {
@@ -183,33 +182,28 @@ namespace Timed.Forms
                     //If the activity is a break
                     else if (keyValuePair1.Key == "Break")
                     {
-                        //Increment the main counter and the one that excludes lunch
+                        //Only increment the main counter
                         workedTimeSpan += keyValuePair1.Value;
-                        workedTimeSpanExcludingLunch += keyValuePair1.Value;
                     }
                     //Otherwise
                     else
                     {
                         //Increment all counters
                         workedTimeSpan += keyValuePair1.Value;
-                        workedTimeSpanExcludingLunch += keyValuePair1.Value;
                         workedTimeSpanExcludingBreaks += keyValuePair1.Value;
                     }
                 }
 
                 //Determine efficiency
-                double efficiencyExcludingLunch = workedTimeSpanExcludingLunch.TotalHours / workingHours;
                 double efficiencyExcludingBreaks = workedTimeSpanExcludingBreaks.TotalHours / workingHours;
 
                 //Populate the text box
                 StringBuilder builder = new StringBuilder();
-                builder.Append(new TimeSpan(8, 0, 0).ToString("hh\\:mm\\:ss") + "   working period"
+                builder.Append(TimeSpan.FromHours(workingHours).ToString("hh\\:mm\\:ss") + "   working period"
                                 + Environment.NewLine
-                                + workedTimeSpan.ToString("hh\\:mm\\:ss") + "   total time logged"
+                                + workedTimeSpan.ToString("hh\\:mm\\:ss") + "   time logged"
                                 + Environment.NewLine
-                                + workedTimeSpanExcludingLunch.ToString("hh\\:mm\\:ss") + "   total time logged (excluding lunch) which is an efficiency of " + efficiencyExcludingLunch.ToString("P1")
-                                + Environment.NewLine
-                                + workedTimeSpanExcludingBreaks.ToString("hh\\:mm\\:ss") + "   total time logged (exluding breaks) which is an efficiency of " + efficiencyExcludingBreaks.ToString("P1"));
+                                + workedTimeSpanExcludingBreaks.ToString("hh\\:mm\\:ss") + "   time logged (exluding breaks) which is an efficiency of " + efficiencyExcludingBreaks.ToString("P1"));
 
 
                 builder.Append(Environment.NewLine);
@@ -249,12 +243,11 @@ namespace Timed.Forms
                 //Summate the total hours
                 TimeSpan workedTimeSpan = new TimeSpan();
                 TimeSpan workedTimeSpanExcludingBreaks = new TimeSpan();
-                TimeSpan workedTimeSpanExcludingLunch = new TimeSpan();
                 //Go through each wrapper
                 foreach (var task in activityCounters)
                 {
                     //If the activity is lunch
-                    if (task.ProjectName == "Lunch" && task.ActivityName == "Lunch")
+                    if (task.ProjectName == "Lunch")
                     {
                         //Only increment the main counter
                         workedTimeSpan += task.timeSpent;
@@ -262,33 +255,28 @@ namespace Timed.Forms
                     //If the activity is a break
                     else if (task.ProjectName == "Break")
                     {
-                        //Increment the main counter and the one that excludes lunch
+                        //Only increment the main counter
                         workedTimeSpan += task.timeSpent;
-                        workedTimeSpanExcludingLunch += task.timeSpent;
                     }
                     //Otherwise
                     else
                     {
                         //Increment all counters
                         workedTimeSpan += task.timeSpent;
-                        workedTimeSpanExcludingLunch += task.timeSpent;
                         workedTimeSpanExcludingBreaks += task.timeSpent;
                     }
                 }
 
                 //Determine efficiency
-                double efficiencyExcludingLunch = workedTimeSpanExcludingLunch.TotalHours / workingHours;
                 double efficiencyExcludingBreaks = workedTimeSpanExcludingBreaks.TotalHours / workingHours;
 
                 //Populate the text box
                 StringBuilder builder = new StringBuilder();
-                builder.Append(new TimeSpan(8, 0, 0).ToString("hh\\:mm\\:ss") + "   working period"
+                builder.Append(TimeSpan.FromHours(workingHours).ToString("hh\\:mm\\:ss") + "   working period"
                                 + Environment.NewLine
-                                + workedTimeSpan.ToString("hh\\:mm\\:ss") + "   total time logged"
+                                + workedTimeSpan.ToString("hh\\:mm\\:ss") + "   time logged"
                                 + Environment.NewLine
-                                + workedTimeSpanExcludingLunch.ToString("hh\\:mm\\:ss") + "   total time logged (excluding lunch) which is an efficiency of " + efficiencyExcludingLunch.ToString("P1")
-                                + Environment.NewLine
-                                + workedTimeSpanExcludingBreaks.ToString("hh\\:mm\\:ss") + "   total time logged (exluding breaks) which is an efficiency of " + efficiencyExcludingBreaks.ToString("P1"));
+                                + workedTimeSpanExcludingBreaks.ToString("hh\\:mm\\:ss") + "   time logged (exluding breaks) which is an efficiency of " + efficiencyExcludingBreaks.ToString("P1"));
                                 
                                 
                 builder.Append(Environment.NewLine);
@@ -322,11 +310,11 @@ namespace Timed.Forms
                     case DayOfWeek.Tuesday:
                     case DayOfWeek.Wednesday:
                     case DayOfWeek.Thursday:
-                        workingHours += 8;
+                        workingHours += 7.5;
                         break;
 
                     case DayOfWeek.Friday:
-                        workingHours += 7;
+                        workingHours += 6.75;
                         break;
 
                     case DayOfWeek.Saturday:
