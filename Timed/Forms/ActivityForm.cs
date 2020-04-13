@@ -13,7 +13,7 @@ namespace Timed.Forms
     {
         //Constants
 
-        private readonly TimeSpan idleThreshold = new TimeSpan(0, 1, 0);
+        private readonly TimeSpan idleThreshold = new TimeSpan(0, 0, 20);
 
         private readonly TimeSpan idleThresholdForPopup = new TimeSpan(0, 3, 0);
 
@@ -23,7 +23,7 @@ namespace Timed.Forms
         {
             //Fields
 
-            public bool SpecialNowEndTime { get; } = false;
+            public TimeSpan? SpecialEndTimeSpan { get; } = null;
 
             private readonly DateTime dateTime;
 
@@ -31,9 +31,9 @@ namespace Timed.Forms
             {
                 get
                 {
-                    if (SpecialNowEndTime)
+                    if (SpecialEndTimeSpan != null)
                     {
-                        return DateTime.UtcNow;
+                        return DateTime.UtcNow - (TimeSpan)SpecialEndTimeSpan;
                     }
                     else
                     {
@@ -44,9 +44,9 @@ namespace Timed.Forms
 
             //Constructor
 
-            public EndTime()
+            public EndTime(TimeSpan timeSpan)
             {
-                SpecialNowEndTime = true;
+                SpecialEndTimeSpan = timeSpan;
             }
 
             public EndTime(DateTime dateTime)
@@ -58,9 +58,16 @@ namespace Timed.Forms
 
             public override string ToString()
             {
-                if (SpecialNowEndTime)
+                if (SpecialEndTimeSpan != null)
                 {
-                    return "Now";
+                    switch (((TimeSpan)SpecialEndTimeSpan).Minutes)
+                    {
+                        case 0:
+                            return "Now";
+
+                        default:
+                            return $"{((TimeSpan)SpecialEndTimeSpan).Minutes} minutes ago";
+                    }
                 }
                 else
                 {
@@ -105,10 +112,15 @@ namespace Timed.Forms
             //Store the start time
             this.startTime = startTime;
 
-            //Add the "Now" end time to the list
-            EndTime endTime = new EndTime();
-            endTimes.Add(endTime);
-            listBoxEndTimeOptions.Items.Add(endTime);
+            //Add the preset times to the list
+            for (int i = 0; i < 6; i++)
+            {
+                listBoxPresetEndOptions.Items.Add(new EndTime(new TimeSpan(0, i, 0)));
+            }
+            for (int i = 10; i < 35; i+=5)
+            {
+                listBoxPresetEndOptions.Items.Add(new EndTime(new TimeSpan(0, i, 0)));
+            }
         }
 
         /// <summary>
@@ -184,23 +196,43 @@ namespace Timed.Forms
                     ProjectName = projectName,
                     Name = activityName,
                     Start = startTime,
+                    End = endTime.DateTime
                 };
 
-                if (endTime.SpecialNowEndTime)
-                {
-                    timedActivity.End = DateTime.UtcNow;
-                    mainForm.TaskFinished(timedActivity, null);
-                }
-                else
-                {
-                    timedActivity.End = endTime.DateTime;
-                    mainForm.TaskFinished(timedActivity, endTime.DateTime);
+                mainForm.TaskFinished(timedActivity);
 
-                }
                 plannedClose = true;
                 Close();
             }
         }
+
+        private void ListBoxPresetEndOptions_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (listBoxPresetEndOptions.SelectedItem != null)
+            {
+                EndTime endTime = (EndTime)listBoxPresetEndOptions.SelectedItem;
+
+                if (endTime.DateTime < startTime)
+                {
+                    MessageBox.Show("You've not spent this much time on the task yet", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                TimedActivity timedActivity = new TimedActivity()
+                {
+                    ProjectName = projectName,
+                    Name = activityName,
+                    Start = startTime,
+                    End = endTime.DateTime
+                };
+
+                mainForm.TaskFinished(timedActivity);
+
+                plannedClose = true;
+                Close();
+            }
+        }
+
 
         //Private Methods
 

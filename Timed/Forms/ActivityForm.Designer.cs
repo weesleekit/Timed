@@ -35,7 +35,10 @@
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.listBoxEndTimeOptions = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.listBoxPresetEndOptions = new System.Windows.Forms.ListBox();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // labelSummary
@@ -70,28 +73,55 @@
             this.listBoxEndTimeOptions.ItemHeight = 20;
             this.listBoxEndTimeOptions.Location = new System.Drawing.Point(6, 19);
             this.listBoxEndTimeOptions.Name = "listBoxEndTimeOptions";
-            this.listBoxEndTimeOptions.Size = new System.Drawing.Size(531, 244);
+            this.listBoxEndTimeOptions.Size = new System.Drawing.Size(309, 244);
             this.listBoxEndTimeOptions.TabIndex = 11;
             this.listBoxEndTimeOptions.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ListBoxEndTimeOptions_MouseDoubleClick);
             // 
             // groupBox1
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox1.Controls.Add(this.listBoxEndTimeOptions);
             this.groupBox1.Location = new System.Drawing.Point(12, 87);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(543, 269);
+            this.groupBox1.Size = new System.Drawing.Size(321, 269);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Double Click on the below to end this task at that time";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.listBoxPresetEndOptions);
+            this.groupBox2.Location = new System.Drawing.Point(339, 87);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(216, 269);
+            this.groupBox2.TabIndex = 13;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Or Double click on pre-set times";
+            // 
+            // listBoxPresetEndOptions
+            // 
+            this.listBoxPresetEndOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listBoxPresetEndOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBoxPresetEndOptions.FormattingEnabled = true;
+            this.listBoxPresetEndOptions.ItemHeight = 20;
+            this.listBoxPresetEndOptions.Location = new System.Drawing.Point(6, 19);
+            this.listBoxPresetEndOptions.Name = "listBoxPresetEndOptions";
+            this.listBoxPresetEndOptions.Size = new System.Drawing.Size(204, 244);
+            this.listBoxPresetEndOptions.TabIndex = 11;
+            this.listBoxPresetEndOptions.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ListBoxPresetEndOptions_MouseDoubleClick);
             // 
             // ActivityForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(567, 368);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.labelSummary);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -103,6 +133,7 @@
             this.Load += new System.EventHandler(this.ActivityForm_Load);
             this.Resize += new System.EventHandler(this.ActivityForm_Resize);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -114,5 +145,7 @@
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.ListBox listBoxEndTimeOptions;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.ListBox listBoxPresetEndOptions;
     }
 }

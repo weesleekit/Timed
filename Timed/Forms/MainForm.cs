@@ -89,8 +89,11 @@ namespace Timed.Forms
 
         //Public Methods
 
-        public void TaskFinished(TimedActivity timedActivity, DateTime? resumePoint)
+        public void TaskFinished(TimedActivity timedActivity)
         {
+            //Get the timedifference
+            TimeSpan timeSpan = DateTime.UtcNow - timedActivity.End;
+
             //Add the activity to the list
             TimedDataStructure.TimedActivities.Add(timedActivity);
 
@@ -98,13 +101,17 @@ namespace Timed.Forms
             SaveDataStructure();
 
             //Set up the UI as appropriate
-            this.resumePoint = resumePoint;
-            buttonResume.Enabled = resumePoint != null;
-            buttonResume.Text = "";
-
-            if (resumePoint != null)
+            if (timeSpan.TotalSeconds > 30)
             {
-                buttonResume.Text = $"Start New Task Starting from {ActivityForm.GetUIFriendlyTimeSpent(DateTime.UtcNow - (DateTime)resumePoint)}";
+                this.resumePoint = timedActivity.End;
+                buttonResume.Text = $"Start New Task Starting from {ActivityForm.GetUIFriendlyTimeSpent(timeSpan)}";
+                buttonResume.Enabled = true;
+            }
+            else
+            {
+                resumePoint = null;
+                buttonResume.Text = "";
+                buttonResume.Enabled = false;
             }
             
             Show();
