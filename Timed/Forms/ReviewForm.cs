@@ -199,7 +199,7 @@ namespace Timed.Forms
 
                 //Populate the text box
                 StringBuilder builder = new StringBuilder();
-                builder.Append(TimeSpan.FromHours(workingHours).ToString("hh\\:mm\\:ss") + "   working period"
+                builder.Append(Math.Truncate(workingHours).ToString("00") + TimeSpan.FromHours(workingHours).ToString("\\:mm\\:ss") + "   working period"
                                 + Environment.NewLine
                                 + workedTimeSpan.ToString("hh\\:mm\\:ss") + "   time logged"
                                 + Environment.NewLine
@@ -272,7 +272,7 @@ namespace Timed.Forms
 
                 //Populate the text box
                 StringBuilder builder = new StringBuilder();
-                builder.Append(TimeSpan.FromHours(workingHours).ToString("hh\\:mm\\:ss") + "   working period"
+                builder.Append(Math.Truncate(workingHours).ToString("00") + TimeSpan.FromHours(workingHours).ToString("\\:mm\\:ss") + "   working period"
                                 + Environment.NewLine
                                 + workedTimeSpan.ToString("hh\\:mm\\:ss") + "   time logged"
                                 + Environment.NewLine
