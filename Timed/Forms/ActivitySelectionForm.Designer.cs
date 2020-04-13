@@ -40,16 +40,18 @@
             this.listBoxPreviousProjects = new System.Windows.Forms.ListBox();
             this.buttonTeaBreak = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.buttonTeamMeeting = new System.Windows.Forms.Button();
+            this.buttonEmailAdmin = new System.Windows.Forms.Button();
+            this.buttonWorloadPlanning = new System.Windows.Forms.Button();
+            this.buttonGeneral = new System.Windows.Forms.Button();
             this.buttonIFSAdmin = new System.Windows.Forms.Button();
             this.buttonColleagues = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.buttonLunch = new System.Windows.Forms.Button();
-            this.buttonGeneral = new System.Windows.Forms.Button();
-            this.buttonWorloadPlanning = new System.Windows.Forms.Button();
-            this.buttonEmailAdmin = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.buttonTraining = new System.Windows.Forms.Button();
-            this.buttonTeamMeeting = new System.Windows.Forms.Button();
+            this.buttonBioBreak = new System.Windows.Forms.Button();
+            this.buttonCatAttack = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -119,7 +121,7 @@
             this.groupBox2.Controls.Add(this.listBoxPreviousActivities);
             this.groupBox2.Location = new System.Drawing.Point(12, 247);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(417, 176);
+            this.groupBox2.Size = new System.Drawing.Size(417, 230);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Previous Tasks      (double click to resume task)";
@@ -133,7 +135,7 @@
             this.listBoxPreviousActivities.Location = new System.Drawing.Point(7, 20);
             this.listBoxPreviousActivities.Name = "listBoxPreviousActivities";
             this.listBoxPreviousActivities.ScrollAlwaysVisible = true;
-            this.listBoxPreviousActivities.Size = new System.Drawing.Size(404, 147);
+            this.listBoxPreviousActivities.Size = new System.Drawing.Size(404, 199);
             this.listBoxPreviousActivities.TabIndex = 0;
             this.listBoxPreviousActivities.SelectedIndexChanged += new System.EventHandler(this.ListBoxPreviousActivities_SelectedIndexChanged);
             this.listBoxPreviousActivities.DoubleClick += new System.EventHandler(this.ListBoxPreviousActivities_DoubleClick);
@@ -176,17 +178,58 @@
             // groupBox4
             // 
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox4.Controls.Add(this.buttonBioBreak);
             this.groupBox4.Controls.Add(this.buttonTeamMeeting);
             this.groupBox4.Controls.Add(this.buttonEmailAdmin);
             this.groupBox4.Controls.Add(this.buttonWorloadPlanning);
             this.groupBox4.Controls.Add(this.buttonGeneral);
             this.groupBox4.Controls.Add(this.buttonIFSAdmin);
-            this.groupBox4.Location = new System.Drawing.Point(441, 151);
+            this.groupBox4.Location = new System.Drawing.Point(441, 180);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(189, 177);
+            this.groupBox4.Size = new System.Drawing.Size(189, 198);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Indirect";
+            // 
+            // buttonTeamMeeting
+            // 
+            this.buttonTeamMeeting.Location = new System.Drawing.Point(6, 135);
+            this.buttonTeamMeeting.Name = "buttonTeamMeeting";
+            this.buttonTeamMeeting.Size = new System.Drawing.Size(177, 23);
+            this.buttonTeamMeeting.TabIndex = 57;
+            this.buttonTeamMeeting.Text = "Team Meeting";
+            this.buttonTeamMeeting.UseVisualStyleBackColor = true;
+            this.buttonTeamMeeting.Click += new System.EventHandler(this.ButtonTeamMeeting_Click);
+            // 
+            // buttonEmailAdmin
+            // 
+            this.buttonEmailAdmin.Location = new System.Drawing.Point(6, 77);
+            this.buttonEmailAdmin.Name = "buttonEmailAdmin";
+            this.buttonEmailAdmin.Size = new System.Drawing.Size(177, 23);
+            this.buttonEmailAdmin.TabIndex = 55;
+            this.buttonEmailAdmin.Text = "Email Admin e.g. Tidying";
+            this.buttonEmailAdmin.UseVisualStyleBackColor = true;
+            this.buttonEmailAdmin.Click += new System.EventHandler(this.ButtonEmailAdmin_Click);
+            // 
+            // buttonWorloadPlanning
+            // 
+            this.buttonWorloadPlanning.Location = new System.Drawing.Point(6, 106);
+            this.buttonWorloadPlanning.Name = "buttonWorloadPlanning";
+            this.buttonWorloadPlanning.Size = new System.Drawing.Size(177, 23);
+            this.buttonWorloadPlanning.TabIndex = 56;
+            this.buttonWorloadPlanning.Text = "Workload Planning";
+            this.buttonWorloadPlanning.UseVisualStyleBackColor = true;
+            this.buttonWorloadPlanning.Click += new System.EventHandler(this.ButtonWorloadPlanning_Click);
+            // 
+            // buttonGeneral
+            // 
+            this.buttonGeneral.Location = new System.Drawing.Point(6, 19);
+            this.buttonGeneral.Name = "buttonGeneral";
+            this.buttonGeneral.Size = new System.Drawing.Size(177, 23);
+            this.buttonGeneral.TabIndex = 53;
+            this.buttonGeneral.Text = "General";
+            this.buttonGeneral.UseVisualStyleBackColor = true;
+            this.buttonGeneral.Click += new System.EventHandler(this.ButtonGeneral_Click);
             // 
             // buttonIFSAdmin
             // 
@@ -211,12 +254,13 @@
             // groupBox6
             // 
             this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox6.Controls.Add(this.buttonCatAttack);
             this.groupBox6.Controls.Add(this.buttonLunch);
             this.groupBox6.Controls.Add(this.buttonColleagues);
             this.groupBox6.Controls.Add(this.buttonTeaBreak);
             this.groupBox6.Location = new System.Drawing.Point(441, 12);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(189, 118);
+            this.groupBox6.Size = new System.Drawing.Size(189, 146);
             this.groupBox6.TabIndex = 6;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Breaks";
@@ -231,41 +275,11 @@
             this.buttonLunch.UseVisualStyleBackColor = true;
             this.buttonLunch.Click += new System.EventHandler(this.ButtonLunch_Click);
             // 
-            // buttonGeneral
-            // 
-            this.buttonGeneral.Location = new System.Drawing.Point(6, 19);
-            this.buttonGeneral.Name = "buttonGeneral";
-            this.buttonGeneral.Size = new System.Drawing.Size(177, 23);
-            this.buttonGeneral.TabIndex = 53;
-            this.buttonGeneral.Text = "General";
-            this.buttonGeneral.UseVisualStyleBackColor = true;
-            this.buttonGeneral.Click += new System.EventHandler(this.ButtonGeneral_Click);
-            // 
-            // buttonWorloadPlanning
-            // 
-            this.buttonWorloadPlanning.Location = new System.Drawing.Point(6, 106);
-            this.buttonWorloadPlanning.Name = "buttonWorloadPlanning";
-            this.buttonWorloadPlanning.Size = new System.Drawing.Size(177, 23);
-            this.buttonWorloadPlanning.TabIndex = 56;
-            this.buttonWorloadPlanning.Text = "Workload Planning";
-            this.buttonWorloadPlanning.UseVisualStyleBackColor = true;
-            this.buttonWorloadPlanning.Click += new System.EventHandler(this.ButtonWorloadPlanning_Click);
-            // 
-            // buttonEmailAdmin
-            // 
-            this.buttonEmailAdmin.Location = new System.Drawing.Point(6, 77);
-            this.buttonEmailAdmin.Name = "buttonEmailAdmin";
-            this.buttonEmailAdmin.Size = new System.Drawing.Size(177, 23);
-            this.buttonEmailAdmin.TabIndex = 55;
-            this.buttonEmailAdmin.Text = "Email Admin e.g. Tidying";
-            this.buttonEmailAdmin.UseVisualStyleBackColor = true;
-            this.buttonEmailAdmin.Click += new System.EventHandler(this.ButtonEmailAdmin_Click);
-            // 
             // groupBox5
             // 
             this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox5.Controls.Add(this.buttonTraining);
-            this.groupBox5.Location = new System.Drawing.Point(441, 353);
+            this.groupBox5.Location = new System.Drawing.Point(441, 405);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(189, 61);
             this.groupBox5.TabIndex = 7;
@@ -282,19 +296,29 @@
             this.buttonTraining.UseVisualStyleBackColor = true;
             this.buttonTraining.Click += new System.EventHandler(this.ButtonTraining_Click);
             // 
-            // buttonTeamMeeting
+            // buttonBioBreak
             // 
-            this.buttonTeamMeeting.Location = new System.Drawing.Point(6, 135);
-            this.buttonTeamMeeting.Name = "buttonTeamMeeting";
-            this.buttonTeamMeeting.Size = new System.Drawing.Size(177, 23);
-            this.buttonTeamMeeting.TabIndex = 57;
-            this.buttonTeamMeeting.Text = "Team Meeting";
-            this.buttonTeamMeeting.UseVisualStyleBackColor = true;
-            this.buttonTeamMeeting.Click += new System.EventHandler(this.ButtonTeamMeeting_Click);
+            this.buttonBioBreak.Location = new System.Drawing.Point(6, 164);
+            this.buttonBioBreak.Name = "buttonBioBreak";
+            this.buttonBioBreak.Size = new System.Drawing.Size(177, 23);
+            this.buttonBioBreak.TabIndex = 58;
+            this.buttonBioBreak.Text = "Bio Break";
+            this.buttonBioBreak.UseVisualStyleBackColor = true;
+            this.buttonBioBreak.Click += new System.EventHandler(this.buttonBioBreak_Click);
+            // 
+            // buttonCatAttack
+            // 
+            this.buttonCatAttack.Location = new System.Drawing.Point(6, 110);
+            this.buttonCatAttack.Name = "buttonCatAttack";
+            this.buttonCatAttack.Size = new System.Drawing.Size(177, 23);
+            this.buttonCatAttack.TabIndex = 53;
+            this.buttonCatAttack.Text = "Cat Attack";
+            this.buttonCatAttack.UseVisualStyleBackColor = true;
+            this.buttonCatAttack.Click += new System.EventHandler(this.buttonCatAttack_Click);
             // 
             // ActivitySelectionForm
             // 
-            this.ClientSize = new System.Drawing.Size(636, 435);
+            this.ClientSize = new System.Drawing.Size(636, 489);
             this.ControlBox = false;
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox6);
@@ -341,6 +365,8 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Button buttonTraining;
         private System.Windows.Forms.Button buttonTeamMeeting;
+        private System.Windows.Forms.Button buttonBioBreak;
+        private System.Windows.Forms.Button buttonCatAttack;
     }
 }
 

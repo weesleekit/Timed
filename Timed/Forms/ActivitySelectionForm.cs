@@ -114,6 +114,11 @@ namespace Timed.Forms
 
             foreach (TimedActivity timedActivity in mainForm.TimedDataStructure.TimedActivities)
             {
+                if (IsActivityExcludedFromUI(timedActivity.ProjectName, timedActivity.Name))
+                {
+                    continue;
+                }
+
                 RecentProject recentProject = recentProjects.Find(x => x.ProjectName == timedActivity.ProjectName);
 
                 if (recentProject == null)
@@ -127,7 +132,7 @@ namespace Timed.Forms
             }
 
             //Order by most recent
-            recentProjects = recentProjects.OrderBy(x => x.MostRecent).ToList();
+            recentProjects = recentProjects.OrderByDescending(x => x.MostRecent).ToList();
 
             //Populate the listbox
             foreach(var project in recentProjects)
@@ -223,6 +228,33 @@ namespace Timed.Forms
             }
         }
 
+        private bool IsActivityExcludedFromUI(string projectName, string activityName)
+        {
+            switch(projectName)
+            {
+                case "Lunch":
+                    return true;
+                case "Break":
+                    return true;
+                case "Indirect":
+                    switch(activityName)
+                    {
+                        case "General":
+                        case "IFS Admin":
+                        case "Email Admin":
+                        case "Workload Planning":
+                        case "Team Meeting":
+                        case "Biobreak":
+                            return true;
+
+                        default:
+                            return false;
+                    }
+                default:
+                    return false;
+            }
+        }
+
         private void ButtonLunch_Click(object sender, EventArgs e)
         {
             StartActivity("Lunch", "Lunch");
@@ -236,6 +268,11 @@ namespace Timed.Forms
         private void ButtonColleagues_Click(object sender, EventArgs e)
         {
             StartActivity("Break", "Colleagues Nattering");
+        }
+
+        private void buttonCatAttack_Click(object sender, EventArgs e)
+        {
+            StartActivity("Break", "Cat Attack");
         }
 
         private void ButtonGeneral_Click(object sender, EventArgs e)
@@ -263,11 +300,15 @@ namespace Timed.Forms
             StartActivity("Indirect", "Team Meeting");
         }
 
+        private void buttonBioBreak_Click(object sender, EventArgs e)
+        {
+            StartActivity("Indirect", "Biobreak");
+        }
+
         private void ButtonTraining_Click(object sender, EventArgs e)
         {
             StartActivity("Training", "Training");
         }
-
 
         //Private Methods
 
@@ -307,6 +348,11 @@ namespace Timed.Forms
 
             foreach (TimedActivity timedActivity in relevantTimedActivities)
             {
+                if (IsActivityExcludedFromUI(timedActivity.ProjectName, timedActivity.Name))
+                {
+                    continue;
+                }
+
                 RecentActivity recentActivity = recentActivities.Find(x => x.ProjectName == timedActivity.ProjectName && x.ActivityName == timedActivity.Name);
 
                 if (recentActivity == null)
@@ -330,6 +376,5 @@ namespace Timed.Forms
                 listBoxPreviousActivities.Items.Add(activity);
             }
         }
-
     }
 }
