@@ -195,15 +195,20 @@ namespace Timed.Forms
                 }
 
                 //Determine efficiency
-                double efficiencyExcludingBreaks = workedTimeSpanExcludingBreaks.TotalHours / workingHours;
+                double fulfillmentOfWorkingHours = workedTimeSpan.TotalHours / workingHours;
+                double efficiency = workedTimeSpanExcludingBreaks.TotalHours / workedTimeSpan.TotalHours;
 
                 //Populate the text box
                 StringBuilder builder = new StringBuilder();
                 builder.Append(Math.Truncate(workingHours).ToString("00") + TimeSpan.FromHours(workingHours).ToString("\\:mm\\:ss") + "   working period"
                                 + Environment.NewLine
-                                + workedTimeSpan.ToString("hh\\:mm\\:ss") + "   time logged"
+                                + workedTimeSpan.ToString("hh\\:mm\\:ss") + "   time logged (including breaks)"
                                 + Environment.NewLine
-                                + workedTimeSpanExcludingBreaks.ToString("hh\\:mm\\:ss") + "   time logged (exluding breaks) which is an efficiency of " + efficiencyExcludingBreaks.ToString("P1"));
+                                + workedTimeSpanExcludingBreaks.ToString("hh\\:mm\\:ss") + "   time logged (exluding breaks)"
+                                + Environment.NewLine
+                                + "This is a fulfillment of the working period of " + fulfillmentOfWorkingHours.ToString("P1")
+                                + Environment.NewLine
+                                + "Worked at an efficiency of " + efficiency.ToString("P1"));
 
 
                 builder.Append(Environment.NewLine);
@@ -268,17 +273,23 @@ namespace Timed.Forms
                 }
 
                 //Determine efficiency
-                double efficiencyExcludingBreaks = workedTimeSpanExcludingBreaks.TotalHours / workingHours;
+                double fulfillmentOfWorkingHours = workedTimeSpan.TotalHours / workingHours;
+                double efficiency = workedTimeSpanExcludingBreaks.TotalHours / workedTimeSpan.TotalHours;
 
                 //Populate the text box
                 StringBuilder builder = new StringBuilder();
                 builder.Append(Math.Truncate(workingHours).ToString("00") + TimeSpan.FromHours(workingHours).ToString("\\:mm\\:ss") + "   working period"
                                 + Environment.NewLine
-                                + workedTimeSpan.ToString("hh\\:mm\\:ss") + "   time logged"
+                                + workedTimeSpan.ToString("hh\\:mm\\:ss") + "   time logged (including breaks)"
                                 + Environment.NewLine
-                                + workedTimeSpanExcludingBreaks.ToString("hh\\:mm\\:ss") + "   time logged (exluding breaks) which is an efficiency of " + efficiencyExcludingBreaks.ToString("P1"));
-                                
-                                
+                                + workedTimeSpanExcludingBreaks.ToString("hh\\:mm\\:ss") + "   time logged (exluding breaks)"
+                                + Environment.NewLine
+                                + "This is a fulfillment of the working period of " + fulfillmentOfWorkingHours.ToString("P1")
+                                + Environment.NewLine
+                                + "Worked at an efficiency of " + efficiency.ToString("P1"));
+
+
+
                 builder.Append(Environment.NewLine);
                 builder.Append(Environment.NewLine);
 
@@ -310,11 +321,11 @@ namespace Timed.Forms
                     case DayOfWeek.Tuesday:
                     case DayOfWeek.Wednesday:
                     case DayOfWeek.Thursday:
-                        workingHours += 7.5;
+                        workingHours += 8.5;
                         break;
 
                     case DayOfWeek.Friday:
-                        workingHours += 6.75;
+                        workingHours += 7.5;
                         break;
 
                     case DayOfWeek.Saturday:
