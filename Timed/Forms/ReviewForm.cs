@@ -172,7 +172,7 @@ namespace Timed.Forms
                     totalTime = RoundUpTo15MinuteIncrements(totalTime);
                 }
 
-                string title = $"${projectName} - {name} - {totalTime.UIFriendlyToString()}";
+                string title = $"{projectName} - {name} - {totalTime.UIFriendlyToString()}";
                 returnList.Add(new (title, totalTime));
             }
 
