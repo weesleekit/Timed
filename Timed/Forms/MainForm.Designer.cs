@@ -33,6 +33,7 @@
             this.buttonReview = new System.Windows.Forms.Button();
             this.buttonPrivacy = new System.Windows.Forms.Button();
             this.buttonResume = new System.Windows.Forms.Button();
+            this.buttonEditDatabase = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonStart
@@ -48,7 +49,7 @@
             // 
             // buttonReview
             // 
-            this.buttonReview.Location = new System.Drawing.Point(14, 190);
+            this.buttonReview.Location = new System.Drawing.Point(14, 244);
             this.buttonReview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonReview.Name = "buttonReview";
             this.buttonReview.Size = new System.Drawing.Size(180, 63);
@@ -59,7 +60,7 @@
             // 
             // buttonPrivacy
             // 
-            this.buttonPrivacy.Location = new System.Drawing.Point(14, 261);
+            this.buttonPrivacy.Location = new System.Drawing.Point(14, 313);
             this.buttonPrivacy.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonPrivacy.Name = "buttonPrivacy";
             this.buttonPrivacy.Size = new System.Drawing.Size(180, 63);
@@ -71,7 +72,7 @@
             // buttonResume
             // 
             this.buttonResume.Enabled = false;
-            this.buttonResume.Location = new System.Drawing.Point(14, 84);
+            this.buttonResume.Location = new System.Drawing.Point(14, 83);
             this.buttonResume.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonResume.Name = "buttonResume";
             this.buttonResume.Size = new System.Drawing.Size(180, 63);
@@ -80,11 +81,23 @@
             this.buttonResume.UseVisualStyleBackColor = true;
             this.buttonResume.Click += new System.EventHandler(this.ButtonResume_Click);
             // 
+            // buttonEditDatabase
+            // 
+            this.buttonEditDatabase.Location = new System.Drawing.Point(13, 175);
+            this.buttonEditDatabase.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.buttonEditDatabase.Name = "buttonEditDatabase";
+            this.buttonEditDatabase.Size = new System.Drawing.Size(180, 63);
+            this.buttonEditDatabase.TabIndex = 4;
+            this.buttonEditDatabase.Text = "Edit Database";
+            this.buttonEditDatabase.UseVisualStyleBackColor = true;
+            this.buttonEditDatabase.Click += new System.EventHandler(this.ButtonEditDatabase_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(208, 339);
+            this.ClientSize = new System.Drawing.Size(208, 390);
+            this.Controls.Add(this.buttonEditDatabase);
             this.Controls.Add(this.buttonResume);
             this.Controls.Add(this.buttonPrivacy);
             this.Controls.Add(this.buttonReview);
@@ -108,5 +121,6 @@
         private System.Windows.Forms.Button buttonReview;
         private System.Windows.Forms.Button buttonPrivacy;
         private System.Windows.Forms.Button buttonResume;
+        private Button buttonEditDatabase;
     }
 }

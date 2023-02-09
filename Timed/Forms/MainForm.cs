@@ -47,6 +47,13 @@ namespace Timed.Forms
             newForm.Show();
         }
 
+        private void ButtonEditDatabase_Click(object sender, EventArgs e)
+        {
+            EditDatabase newForm = new(this);
+            Hide();
+            newForm.Show();
+        }
+
         private void ButtonReview_Click(object sender, EventArgs e)
         {
             ReviewForm newForm = new(this);
