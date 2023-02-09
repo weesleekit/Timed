@@ -168,7 +168,8 @@ namespace Timed.Forms
             {
                 ProjectName = projectName,
                 Name = activityName,
-                Start = startPoint
+                Start = startPoint,
+                End = startPoint,
             };
 
             ActivityForm activityForm = new(timedActivity, mainForm)

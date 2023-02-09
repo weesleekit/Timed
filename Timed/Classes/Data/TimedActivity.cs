@@ -2,13 +2,13 @@
 {
     public class TimedActivity
     {
-        public string ProjectName { get; set; }
+        public required string ProjectName { get; set; }
 
-        public string Name { get; set; }
+        public required string Name { get; set; }
         
-        public DateTime Start { get; set; }
+        public required DateTime Start { get; set; }
 
-        public DateTime End { get; set; }
+        public required DateTime End { get; set; }
 
         public override string ToString()
         {

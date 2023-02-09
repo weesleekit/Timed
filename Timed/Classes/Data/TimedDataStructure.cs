@@ -51,7 +51,7 @@ namespace Timed.Classes.Data
             string fileContents = JsonConvert.SerializeObject(this);
 
             FileInfo fileInfo = new(path);
-            fileInfo.Directory.Create();
+            fileInfo.Directory?.Create();
 
             File.WriteAllText(path, fileContents);
         }
