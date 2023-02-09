@@ -1,258 +1,103 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Windows.Forms;
-using Timed.Classes;
+﻿using System.Data;
+using Timed.Classes.Data;
 
 namespace Timed.Forms
 {
     public partial class ActivitySelectionForm : Form
     {
-        //Nested Classes
+        // Fields
 
-        class RecentProject
-        {
-            //Properties
+        private readonly MainForm mainForm;
 
-            public string ProjectName { get; }
-            public DateTime MostRecent { get; private set; }
+        private readonly DateTime startPoint = DateTime.UtcNow;
+        
+        private bool closingFormDueToTaskStarting = false;
 
-            //Constructor
-
-            public RecentProject(string projectName, DateTime mostRecent)
-            {
-                ProjectName = projectName;
-                MostRecent = mostRecent;
-            }
-
-            //Public Method
-
-            public void TakeInActivityEndTime(DateTime dateTime)
-            {
-                if (dateTime > MostRecent)
-                {
-                    MostRecent = dateTime;
-                }
-            }
-
-            //Public Override
-
-            public override string ToString()
-            {
-                return ProjectName;
-            }
-        }
-
-        class RecentActivity
-        {
-            //Properties
-
-            public string ActivityName { get; }
-            public string ProjectName { get; }
-            public DateTime MostRecent { get; private set; }
-
-
-            public RecentActivity(string projectName, string activityName, DateTime mostRecent)
-            {
-                ActivityName = activityName;
-                ProjectName = projectName;
-                MostRecent = mostRecent;
-            }
-
-            //Public Method
-
-            public void TakeInActivityEndTime(DateTime dateTime)
-            {
-                if (dateTime > MostRecent)
-                {
-                    MostRecent = dateTime;
-                }
-            }
-
-            //Public Override
-
-            public override string ToString()
-            {
-                return ProjectName + " - " + ActivityName;
-            }
-        }
-
-        //Fields
-
-        /// <summary>
-        /// The reference to the main form
-        /// </summary>
-        public MainForm mainForm;
-
-        /// <summary>
-        /// Set to true when the application intended the form to close
-        /// </summary>
-        private bool plannedClose = false;
-
-        private readonly DateTime startPoint;
-
-        //Constructor
+        // Constructor
 
         public ActivitySelectionForm(MainForm mainForm, DateTime? resumePoint = null)
         {
-            //Store the main form and initialise
             this.mainForm = mainForm;
             InitializeComponent();
 
-            if (resumePoint == null)
+            if (resumePoint != null)
             {
-                startPoint = DateTime.UtcNow;
-            }
-            else
-            {
-                startPoint = (DateTime)resumePoint;
+                startPoint = resumePoint.Value;
             }
 
-            //Create an aggregate of the projects with when they were most recently worked on:
-            List<RecentProject> recentProjects = new List<RecentProject>();
+            IEnumerable<string> recentProjects = mainForm.TimedDataStructure.GetRecentProjects();
 
-            foreach (TimedActivity timedActivity in mainForm.TimedDataStructure.TimedActivities)
-            {
-                if (IsActivityExcludedFromUI(timedActivity.ProjectName, timedActivity.Name))
-                {
-                    continue;
-                }
+            listBoxPreviousProjects.Items.AddRange(recentProjects.ToArray());
 
-                RecentProject recentProject = recentProjects.Find(x => x.ProjectName == timedActivity.ProjectName);
-
-                if (recentProject == null)
-                {
-                    recentProjects.Add(new RecentProject(timedActivity.ProjectName, timedActivity.End));
-                }
-                else
-                {
-                    recentProject.TakeInActivityEndTime(timedActivity.End);
-                }
-            }
-
-            //Order by most recent
-            recentProjects = recentProjects.OrderByDescending(x => x.MostRecent).ToList();
-
-            //Populate the listbox
-            foreach(var project in recentProjects)
-            {
-                listBoxPreviousProjects.Items.Add(project);
-            }
-
-            //Update the UI for the tasklist
             UpdateRecentActivities(null);
         }
 
-        //UI Events
-        
-        /// <summary>
-        /// If enter is pressed then it's a new activity
-        /// </summary>
+        // UI Events
+
         private void TextBoxKeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Enter)
+            if (e.KeyCode != Keys.Enter)
             {
-                if (textBoxName.Text.Trim() == "" || textBoxProject.Text.Trim() == "")
-                {
-                    return;
-                }
-                else
-                {
-                    StartActivity(textBoxProject.Text.Trim(), textBoxName.Text.Trim());
-                }
+                return;
             }
+
+            string projectText = textBoxProject.Text.Trim();
+            string nameText = textBoxName.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(nameText) 
+                || string.IsNullOrWhiteSpace(projectText))
+            {
+                return;
+            }
+
+            StartActivity(projectText, nameText);
         }
 
-        /// <summary>
-        /// Resuming an previous activity
-        /// </summary>
         private void ListBoxPreviousActivities_DoubleClick(object sender, EventArgs e)
         {
-            //See if there is an activity selected
-            if (listBoxPreviousActivities.SelectedItem != null)
+            if (listBoxPreviousActivities.SelectedItem == null)
             {
-                //Get the project
-                RecentActivity recentActivity = (RecentActivity)listBoxPreviousActivities.SelectedItem;
-
-                StartActivity(recentActivity.ProjectName, recentActivity.ActivityName);
+                return;
             }
+
+            TimedActivity timedActivity = (TimedActivity)listBoxPreviousActivities.SelectedItem;
+
+            StartActivity(timedActivity.ProjectName, timedActivity.Name);
         }
 
-        /// <summary>
-        /// Filtering on previous project but also pre-populating the input box
-        /// </summary>
         private void ListBoxPreviousProjects_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //See if there is a project selected
-            if (listBoxPreviousProjects.SelectedItem != null)
+            if (listBoxPreviousProjects.SelectedItem == null)
             {
-                //Get the project
-                RecentProject recentProject = (RecentProject)listBoxPreviousProjects.SelectedItem;
-
-                //Filter the activity to that project only
-                UpdateRecentActivities(recentProject);
-
-                //Pre-populate the project input box
-                textBoxProject.Text = recentProject.ProjectName;
-
-                //Focus on the activity input box
-                textBoxName.Focus();
+                return;
             }
+
+            string projectName = (string)listBoxPreviousProjects.SelectedItem;
+
+            UpdateRecentActivities(projectName);
         }
 
-        /// <summary>
-        /// Prepopulating input box
-        /// </summary>
         private void ListBoxPreviousActivities_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //See if there is a project selected
-            if (listBoxPreviousActivities.SelectedItem != null)
+            if (listBoxPreviousActivities.SelectedItem == null)
             {
-                //Get the project
-                RecentActivity recentActivity = (RecentActivity)listBoxPreviousActivities.SelectedItem;
-
-                //Pre-populate the project input box
-                textBoxProject.Text = recentActivity.ProjectName;
-
-                //Focus on the activity input box
-                textBoxName.Focus();
+                return;
             }
+
+            TimedActivity recentActivity = (TimedActivity)listBoxPreviousActivities.SelectedItem;
+            
+            textBoxProject.Text = recentActivity.ProjectName;
+            textBoxName.Focus();
         }
 
         private void ActivitySelectionForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!plannedClose)
+            if (closingFormDueToTaskStarting)
             {
-                Application.Exit();
+                return;
             }
-        }
 
-        private bool IsActivityExcludedFromUI(string projectName, string activityName)
-        {
-            switch(projectName)
-            {
-                case "Lunch":
-                    return true;
-                case "Break":
-                    return true;
-                case "Indirect":
-                    switch(activityName)
-                    {
-                        case "General":
-                        case "IFS Admin":
-                        case "Email Admin":
-                        case "Workload Planning":
-                        case "Team Meeting":
-                        case "Biobreak":
-                            return true;
-
-                        default:
-                            return false;
-                    }
-                default:
-                    return false;
-            }
+            mainForm.Show();
         }
 
         private void ButtonLunch_Click(object sender, EventArgs e)
@@ -270,9 +115,14 @@ namespace Timed.Forms
             StartActivity("Break", "Colleagues Nattering");
         }
 
-        private void buttonCatAttack_Click(object sender, EventArgs e)
+        private void ButtonCatAttack_Click(object sender, EventArgs e)
         {
             StartActivity("Break", "Cat Attack");
+        }
+
+        private void ButtonBabyDuty_Click(object sender, EventArgs e)
+        {
+            StartActivity("Break", "Baby Duty");
         }
 
         private void ButtonGeneral_Click(object sender, EventArgs e)
@@ -300,7 +150,7 @@ namespace Timed.Forms
             StartActivity("Indirect", "Team Meeting");
         }
 
-        private void buttonBioBreak_Click(object sender, EventArgs e)
+        private void ButtonBioBreak_Click(object sender, EventArgs e)
         {
             StartActivity("Indirect", "Biobreak");
         }
@@ -310,71 +160,44 @@ namespace Timed.Forms
             StartActivity("Training", "Training");
         }
 
-        //Private Methods
+        // Private Methods
 
         private void StartActivity(string projectName, string activityName)
         {
-#pragma warning disable IDE0067 // Dispose objects before losing scope
-            ActivityForm activityForm = new ActivityForm(projectName, activityName, mainForm, startPoint)
+            TimedActivity timedActivity = new()
+            {
+                ProjectName = projectName,
+                Name = activityName,
+                Start = startPoint
+            };
+
+            ActivityForm activityForm = new(timedActivity, mainForm)
             {
                 WindowState = FormWindowState.Minimized
             };
-#pragma warning restore IDE0067 // Dispose objects before losing scope
 
             activityForm.Show();
-            plannedClose = true;
+            closingFormDueToTaskStarting = true;
             Close();
         }
 
-        private void UpdateRecentActivities(RecentProject recentProject)
+        private void UpdateRecentActivities(string? projectName)
         {
-            //Determine which activities are relevant
-            List<TimedActivity> relevantTimedActivities;
-
-            //See if there is a project selected
-            if (recentProject == null)
+            IEnumerable<TimedActivity> timedActivities;
+            if (projectName == null)
             {
-                //Show all the activity
-                relevantTimedActivities = mainForm.TimedDataStructure.TimedActivities;
+                timedActivities = mainForm.TimedDataStructure.TimedActivities.OrderBy(x => x.End);
             }
             else
             {
-                //Filter the activity to that project only
-                relevantTimedActivities = mainForm.TimedDataStructure.TimedActivities.FindAll(x => x.ProjectName == recentProject.ProjectName);
+                timedActivities = mainForm.TimedDataStructure.TimedActivities.Where(x => x.ProjectName == projectName).OrderBy(x => x.End);
             }
-
-            //Create an aggregate of the activities with when they were most recently worked on:
-            List<RecentActivity> recentActivities = new List<RecentActivity>();
-
-            foreach (TimedActivity timedActivity in relevantTimedActivities)
-            {
-                if (IsActivityExcludedFromUI(timedActivity.ProjectName, timedActivity.Name))
-                {
-                    continue;
-                }
-
-                RecentActivity recentActivity = recentActivities.Find(x => x.ProjectName == timedActivity.ProjectName && x.ActivityName == timedActivity.Name);
-
-                if (recentActivity == null)
-                {
-                    recentActivities.Add(new RecentActivity(timedActivity.ProjectName, timedActivity.Name, timedActivity.End));
-                }
-                else
-                {
-                    recentActivity.TakeInActivityEndTime(timedActivity.End);
-                }
-            }
-
-            //Order by most recent
-            recentActivities = recentActivities.OrderByDescending(x => x.MostRecent).ToList();
 
             listBoxPreviousActivities.Items.Clear();
+            listBoxPreviousActivities.Items.AddRange(timedActivities.ToArray());
 
-            //Populate the listbox
-            foreach (var activity in recentActivities)
-            {
-                listBoxPreviousActivities.Items.Add(activity);
-            }
+            textBoxProject.Text = projectName;
+            textBoxName.Focus();
         }
     }
 }

@@ -44,8 +44,9 @@
             // labelSummary
             // 
             this.labelSummary.AutoSize = true;
-            this.labelSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelSummary.Location = new System.Drawing.Point(12, 9);
+            this.labelSummary.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelSummary.Location = new System.Drawing.Point(14, 10);
+            this.labelSummary.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelSummary.Name = "labelSummary";
             this.labelSummary.Size = new System.Drawing.Size(97, 60);
             this.labelSummary.TabIndex = 6;
@@ -68,12 +69,13 @@
             this.listBoxEndTimeOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBoxEndTimeOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBoxEndTimeOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.listBoxEndTimeOptions.FormattingEnabled = true;
             this.listBoxEndTimeOptions.ItemHeight = 20;
-            this.listBoxEndTimeOptions.Location = new System.Drawing.Point(6, 19);
+            this.listBoxEndTimeOptions.Location = new System.Drawing.Point(7, 22);
+            this.listBoxEndTimeOptions.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.listBoxEndTimeOptions.Name = "listBoxEndTimeOptions";
-            this.listBoxEndTimeOptions.Size = new System.Drawing.Size(309, 244);
+            this.listBoxEndTimeOptions.Size = new System.Drawing.Size(360, 264);
             this.listBoxEndTimeOptions.TabIndex = 11;
             this.listBoxEndTimeOptions.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ListBoxEndTimeOptions_MouseDoubleClick);
             // 
@@ -82,9 +84,11 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.groupBox1.Controls.Add(this.listBoxEndTimeOptions);
-            this.groupBox1.Location = new System.Drawing.Point(12, 87);
+            this.groupBox1.Location = new System.Drawing.Point(14, 100);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(321, 269);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.groupBox1.Size = new System.Drawing.Size(374, 310);
             this.groupBox1.TabIndex = 12;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Double Click on the below to end this task at that time";
@@ -95,9 +99,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.listBoxPresetEndOptions);
-            this.groupBox2.Location = new System.Drawing.Point(339, 87);
+            this.groupBox2.Location = new System.Drawing.Point(396, 100);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(216, 269);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.groupBox2.Size = new System.Drawing.Size(252, 310);
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Or Double click on pre-set times";
@@ -107,25 +113,27 @@
             this.listBoxPresetEndOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBoxPresetEndOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBoxPresetEndOptions.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.listBoxPresetEndOptions.FormattingEnabled = true;
             this.listBoxPresetEndOptions.ItemHeight = 20;
-            this.listBoxPresetEndOptions.Location = new System.Drawing.Point(6, 19);
+            this.listBoxPresetEndOptions.Location = new System.Drawing.Point(7, 22);
+            this.listBoxPresetEndOptions.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.listBoxPresetEndOptions.Name = "listBoxPresetEndOptions";
-            this.listBoxPresetEndOptions.Size = new System.Drawing.Size(204, 244);
+            this.listBoxPresetEndOptions.Size = new System.Drawing.Size(237, 264);
             this.listBoxPresetEndOptions.TabIndex = 11;
             this.listBoxPresetEndOptions.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.ListBoxPresetEndOptions_MouseDoubleClick);
             // 
             // ActivityForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(567, 368);
+            this.ClientSize = new System.Drawing.Size(662, 425);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.labelSummary);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "ActivityForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Minimise this window to resume working on the activity";

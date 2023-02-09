@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
 namespace Timed.Classes
 {
@@ -23,7 +22,7 @@ namespace Timed.Classes
 
         public static uint GetIdleTime()
         {
-            LASTINPUTINFO lastInPut = new LASTINPUTINFO();
+            LASTINPUTINFO lastInPut = new();
             lastInPut.cbSize = (uint)System.Runtime.InteropServices.Marshal.SizeOf(lastInPut);
             GetLastInputInfo(ref lastInPut);
 
@@ -35,7 +34,7 @@ namespace Timed.Classes
         /// <returns></returns>
         public static long GetLastInputTime()
         {
-            LASTINPUTINFO lastInPut = new LASTINPUTINFO();
+            LASTINPUTINFO lastInPut = new();
             lastInPut.cbSize = (uint)System.Runtime.InteropServices.Marshal.SizeOf(lastInPut);
             if (!GetLastInputInfo(ref lastInPut))
             {

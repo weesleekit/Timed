@@ -1,169 +1,62 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.IO;
-using System.Windows.Forms;
-using Timed.Classes;
+﻿using Timed.Classes;
+using Timed.Classes.Data;
 
 namespace Timed.Forms
 {
     public partial class MainForm : Form
     {
-        //Constants
+        // Constants
 
-        private const string filePath = "UserData.txt";
+        private double minNumberOfSecondsForResumeOption = 30;
 
-        //Fields
+        // Fields
 
-        public TimedDataStructure TimedDataStructure { get; } = null;
+        internal TimedDataStructure TimedDataStructure { get; }
 
         private DateTime? resumePoint = null;
 
-        //Constructor
+        // Constructor
 
-        public MainForm(out bool success)
+        public MainForm()
         {
             InitializeComponent();
-
-            //Set up the data
-            TimedDataStructure = LoadDataStructure();
-
-            //Return whether or not successful
-            success = TimedDataStructure != null;
-
-            //Set up the buttons
-            buttonResume.Enabled = false;
-            buttonResume.Text = "";
+            try
+            {
+                TimedDataStructure = TimedDataStructure.Load();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                throw;
+            }
         }
-        
-        //UI Events
 
-        /// <summary>
-        /// Creates the input form and hides this form
-        /// </summary>
+        //UI Events
+        
         private void ButtonStart_Click(object sender, EventArgs e)
         {
-            //Start a new task
-#pragma warning disable IDE0067 // Dispose objects before losing scope
-            ActivitySelectionForm taskSelectionForm = new ActivitySelectionForm(this);
-#pragma warning restore IDE0067 // Dispose objects before losing scope
+            ActivitySelectionForm newForm = new(this);
             Hide();
-            taskSelectionForm.Show();
+            newForm.Show();
         }
+
         private void ButtonResume_Click(object sender, EventArgs e)
         {
-            if (resumePoint == null)
-            {
-                buttonResume.Enabled = false;
-                buttonResume.Text = "";
-                return;
-            }
-
-            //Start a new task
-#pragma warning disable IDE0067 // Dispose objects before losing scope
-            ActivitySelectionForm taskSelectionForm = new ActivitySelectionForm(this, resumePoint);
-#pragma warning restore IDE0067 // Dispose objects before losing scope
+            ActivitySelectionForm newForm = new(this, resumePoint);
             Hide();
-            taskSelectionForm.Show();
+            newForm.Show();
         }
 
-        /// <summary>
-        /// Creates the review form and hides this form
-        /// </summary>
         private void ButtonReview_Click(object sender, EventArgs e)
         {
-            //Start a review
-#pragma warning disable IDE0067 // Dispose objects before losing scope
-            ReviewForm reviewForm = new ReviewForm(this);
-#pragma warning restore IDE0067 // Dispose objects before losing scope
-            this.Hide();
-            reviewForm.Show();
+            ReviewForm newForm = new(this);
+            Hide();
+            newForm.Show();
         }
-
-        /// <summary>
-        /// This saves the datastructure to disk
-        /// </summary>
+     
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            SaveDataStructure();
-        }
-
-        //Public Methods
-
-        public void TaskFinished(TimedActivity timedActivity)
-        {
-            //Get the timedifference
-            TimeSpan timeSpan = DateTime.UtcNow - timedActivity.End;
-
-            //Add the activity to the list
-            TimedDataStructure.TimedActivities.Add(timedActivity);
-
-            //Save to disk
-            SaveDataStructure();
-
-            //Set up the UI as appropriate
-            if (timeSpan.TotalSeconds > 30)
-            {
-                this.resumePoint = timedActivity.End;
-                buttonResume.Text = $"Start New Task Starting from {ActivityForm.GetUIFriendlyTimeSpent(timeSpan)}";
-                buttonResume.Enabled = true;
-            }
-            else
-            {
-                resumePoint = null;
-                buttonResume.Text = "";
-                buttonResume.Enabled = false;
-            }
-            
-            Show();
-        }
-
-        //Private Methods
-
-        private void SaveDataStructure()
-        {
-            if (TimedDataStructure != null)
-            {
-                try
-                {
-                    string fileContents = JsonConvert.SerializeObject(TimedDataStructure);
-
-                    File.WriteAllText(filePath, fileContents);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Loads the saved JSON object (if it exists), otherwise creates a new one to start with
-        /// </summary>
-        /// <returns></returns>
-        private TimedDataStructure LoadDataStructure()
-        {
-            TimedDataStructure timedDataStructure;
-
-            if (File.Exists(filePath))
-            {
-                try
-                {
-                    string fileContents = File.ReadAllText(filePath);
-
-                    timedDataStructure = JsonConvert.DeserializeObject<TimedDataStructure>(fileContents);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                    return null;
-                }
-            }
-            else
-            {
-                timedDataStructure = new TimedDataStructure();
-            }
-
-            return timedDataStructure;
+            TimedDataStructure?.Save();
         }
 
         private void ButtonPrivacy_Click(object sender, EventArgs e)
@@ -184,5 +77,29 @@ namespace Timed.Forms
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        //Public Methods
+
+        internal void TaskFinished(TimedActivity timedActivity)
+        {
+            TimedDataStructure?.AddActivity(timedActivity);
+
+            TimeSpan timeSpan = DateTime.UtcNow - timedActivity.End;
+
+            //Set up the UI as appropriate
+            if (timeSpan.TotalSeconds > minNumberOfSecondsForResumeOption)
+            {
+                resumePoint = timedActivity.End;
+                buttonResume.Text = $"Start New Task Starting from {timeSpan.UIFriendlyToString()}";
+                buttonResume.Enabled = true;
+            }
+            else
+            {
+                resumePoint = null;
+                buttonResume.Text = "";
+                buttonResume.Enabled = false;
+            }
+
+            Show();
+        }
     }
 }

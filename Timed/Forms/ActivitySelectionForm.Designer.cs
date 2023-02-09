@@ -40,6 +40,7 @@
             this.listBoxPreviousProjects = new System.Windows.Forms.ListBox();
             this.buttonTeaBreak = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.buttonBioBreak = new System.Windows.Forms.Button();
             this.buttonTeamMeeting = new System.Windows.Forms.Button();
             this.buttonEmailAdmin = new System.Windows.Forms.Button();
             this.buttonWorloadPlanning = new System.Windows.Forms.Button();
@@ -47,11 +48,11 @@
             this.buttonIFSAdmin = new System.Windows.Forms.Button();
             this.buttonColleagues = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.buttonBabyDuty = new System.Windows.Forms.Button();
+            this.buttonCatAttack = new System.Windows.Forms.Button();
             this.buttonLunch = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.buttonTraining = new System.Windows.Forms.Button();
-            this.buttonBioBreak = new System.Windows.Forms.Button();
-            this.buttonCatAttack = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -80,7 +81,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(7, 22);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(40, 13);
+            this.label2.Size = new System.Drawing.Size(44, 15);
             this.label2.TabIndex = 4;
             this.label2.Text = "Project";
             // 
@@ -89,7 +90,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(7, 48);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 13);
+            this.label1.Size = new System.Drawing.Size(110, 15);
             this.label1.TabIndex = 3;
             this.label1.Text = "Activity Description";
             // 
@@ -97,9 +98,9 @@
             // 
             this.textBoxProject.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxProject.Location = new System.Drawing.Point(110, 19);
+            this.textBoxProject.Location = new System.Drawing.Point(123, 19);
             this.textBoxProject.Name = "textBoxProject";
-            this.textBoxProject.Size = new System.Drawing.Size(301, 20);
+            this.textBoxProject.Size = new System.Drawing.Size(288, 23);
             this.textBoxProject.TabIndex = 0;
             this.textBoxProject.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxKeyDown);
             // 
@@ -107,9 +108,9 @@
             // 
             this.textBoxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxName.Location = new System.Drawing.Point(110, 45);
+            this.textBoxName.Location = new System.Drawing.Point(123, 45);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(301, 20);
+            this.textBoxName.Size = new System.Drawing.Size(288, 23);
             this.textBoxName.TabIndex = 1;
             this.textBoxName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxKeyDown);
             // 
@@ -132,6 +133,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxPreviousActivities.FormattingEnabled = true;
+            this.listBoxPreviousActivities.ItemHeight = 15;
             this.listBoxPreviousActivities.Location = new System.Drawing.Point(7, 20);
             this.listBoxPreviousActivities.Name = "listBoxPreviousActivities";
             this.listBoxPreviousActivities.ScrollAlwaysVisible = true;
@@ -158,10 +160,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listBoxPreviousProjects.FormattingEnabled = true;
+            this.listBoxPreviousProjects.ItemHeight = 15;
             this.listBoxPreviousProjects.Location = new System.Drawing.Point(6, 19);
             this.listBoxPreviousProjects.Name = "listBoxPreviousProjects";
             this.listBoxPreviousProjects.ScrollAlwaysVisible = true;
-            this.listBoxPreviousProjects.Size = new System.Drawing.Size(404, 121);
+            this.listBoxPreviousProjects.Size = new System.Drawing.Size(404, 109);
             this.listBoxPreviousProjects.TabIndex = 1;
             this.listBoxPreviousProjects.SelectedIndexChanged += new System.EventHandler(this.ListBoxPreviousProjects_SelectedIndexChanged);
             // 
@@ -184,12 +187,22 @@
             this.groupBox4.Controls.Add(this.buttonWorloadPlanning);
             this.groupBox4.Controls.Add(this.buttonGeneral);
             this.groupBox4.Controls.Add(this.buttonIFSAdmin);
-            this.groupBox4.Location = new System.Drawing.Point(441, 180);
+            this.groupBox4.Location = new System.Drawing.Point(441, 194);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(189, 198);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Indirect";
+            // 
+            // buttonBioBreak
+            // 
+            this.buttonBioBreak.Location = new System.Drawing.Point(6, 164);
+            this.buttonBioBreak.Name = "buttonBioBreak";
+            this.buttonBioBreak.Size = new System.Drawing.Size(177, 23);
+            this.buttonBioBreak.TabIndex = 58;
+            this.buttonBioBreak.Text = "Bio Break";
+            this.buttonBioBreak.UseVisualStyleBackColor = true;
+            this.buttonBioBreak.Click += new System.EventHandler(this.ButtonBioBreak_Click);
             // 
             // buttonTeamMeeting
             // 
@@ -254,16 +267,37 @@
             // groupBox6
             // 
             this.groupBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox6.Controls.Add(this.buttonBabyDuty);
             this.groupBox6.Controls.Add(this.buttonCatAttack);
             this.groupBox6.Controls.Add(this.buttonLunch);
             this.groupBox6.Controls.Add(this.buttonColleagues);
             this.groupBox6.Controls.Add(this.buttonTeaBreak);
             this.groupBox6.Location = new System.Drawing.Point(441, 12);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(189, 146);
+            this.groupBox6.Size = new System.Drawing.Size(189, 171);
             this.groupBox6.TabIndex = 6;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Breaks";
+            // 
+            // buttonBabyDuty
+            // 
+            this.buttonBabyDuty.Location = new System.Drawing.Point(6, 139);
+            this.buttonBabyDuty.Name = "buttonBabyDuty";
+            this.buttonBabyDuty.Size = new System.Drawing.Size(177, 23);
+            this.buttonBabyDuty.TabIndex = 54;
+            this.buttonBabyDuty.Text = "Baby Duty";
+            this.buttonBabyDuty.UseVisualStyleBackColor = true;
+            this.buttonBabyDuty.Click += new System.EventHandler(this.ButtonBabyDuty_Click);
+            // 
+            // buttonCatAttack
+            // 
+            this.buttonCatAttack.Location = new System.Drawing.Point(6, 110);
+            this.buttonCatAttack.Name = "buttonCatAttack";
+            this.buttonCatAttack.Size = new System.Drawing.Size(177, 23);
+            this.buttonCatAttack.TabIndex = 53;
+            this.buttonCatAttack.Text = "Cat Attack";
+            this.buttonCatAttack.UseVisualStyleBackColor = true;
+            this.buttonCatAttack.Click += new System.EventHandler(this.ButtonCatAttack_Click);
             // 
             // buttonLunch
             // 
@@ -295,26 +329,6 @@
             this.buttonTraining.Text = "Training";
             this.buttonTraining.UseVisualStyleBackColor = true;
             this.buttonTraining.Click += new System.EventHandler(this.ButtonTraining_Click);
-            // 
-            // buttonBioBreak
-            // 
-            this.buttonBioBreak.Location = new System.Drawing.Point(6, 164);
-            this.buttonBioBreak.Name = "buttonBioBreak";
-            this.buttonBioBreak.Size = new System.Drawing.Size(177, 23);
-            this.buttonBioBreak.TabIndex = 58;
-            this.buttonBioBreak.Text = "Bio Break";
-            this.buttonBioBreak.UseVisualStyleBackColor = true;
-            this.buttonBioBreak.Click += new System.EventHandler(this.buttonBioBreak_Click);
-            // 
-            // buttonCatAttack
-            // 
-            this.buttonCatAttack.Location = new System.Drawing.Point(6, 110);
-            this.buttonCatAttack.Name = "buttonCatAttack";
-            this.buttonCatAttack.Size = new System.Drawing.Size(177, 23);
-            this.buttonCatAttack.TabIndex = 53;
-            this.buttonCatAttack.Text = "Cat Attack";
-            this.buttonCatAttack.UseVisualStyleBackColor = true;
-            this.buttonCatAttack.Click += new System.EventHandler(this.buttonCatAttack_Click);
             // 
             // ActivitySelectionForm
             // 
@@ -367,6 +381,6 @@
         private System.Windows.Forms.Button buttonTeamMeeting;
         private System.Windows.Forms.Button buttonBioBreak;
         private System.Windows.Forms.Button buttonCatAttack;
+        private System.Windows.Forms.Button buttonBabyDuty;
     }
 }
-

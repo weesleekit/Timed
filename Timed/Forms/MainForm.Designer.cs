@@ -37,9 +37,10 @@
             // 
             // buttonStart
             // 
-            this.buttonStart.Location = new System.Drawing.Point(12, 12);
+            this.buttonStart.Location = new System.Drawing.Point(14, 14);
+            this.buttonStart.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonStart.Name = "buttonStart";
-            this.buttonStart.Size = new System.Drawing.Size(154, 55);
+            this.buttonStart.Size = new System.Drawing.Size(180, 63);
             this.buttonStart.TabIndex = 0;
             this.buttonStart.Text = "Start New Task\r\nFrom Now";
             this.buttonStart.UseVisualStyleBackColor = true;
@@ -47,9 +48,10 @@
             // 
             // buttonReview
             // 
-            this.buttonReview.Location = new System.Drawing.Point(12, 165);
+            this.buttonReview.Location = new System.Drawing.Point(14, 190);
+            this.buttonReview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonReview.Name = "buttonReview";
-            this.buttonReview.Size = new System.Drawing.Size(154, 55);
+            this.buttonReview.Size = new System.Drawing.Size(180, 63);
             this.buttonReview.TabIndex = 1;
             this.buttonReview.Text = "Activity Report";
             this.buttonReview.UseVisualStyleBackColor = true;
@@ -57,9 +59,10 @@
             // 
             // buttonPrivacy
             // 
-            this.buttonPrivacy.Location = new System.Drawing.Point(12, 226);
+            this.buttonPrivacy.Location = new System.Drawing.Point(14, 261);
+            this.buttonPrivacy.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonPrivacy.Name = "buttonPrivacy";
-            this.buttonPrivacy.Size = new System.Drawing.Size(154, 55);
+            this.buttonPrivacy.Size = new System.Drawing.Size(180, 63);
             this.buttonPrivacy.TabIndex = 2;
             this.buttonPrivacy.Text = "Privacy Statement";
             this.buttonPrivacy.UseVisualStyleBackColor = true;
@@ -68,9 +71,10 @@
             // buttonResume
             // 
             this.buttonResume.Enabled = false;
-            this.buttonResume.Location = new System.Drawing.Point(12, 73);
+            this.buttonResume.Location = new System.Drawing.Point(14, 84);
+            this.buttonResume.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonResume.Name = "buttonResume";
-            this.buttonResume.Size = new System.Drawing.Size(154, 55);
+            this.buttonResume.Size = new System.Drawing.Size(180, 63);
             this.buttonResume.TabIndex = 3;
             this.buttonResume.Text = "Start New Task \r\nFrom Before";
             this.buttonResume.UseVisualStyleBackColor = true;
@@ -78,15 +82,16 @@
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(178, 294);
+            this.ClientSize = new System.Drawing.Size(208, 339);
             this.Controls.Add(this.buttonResume);
             this.Controls.Add(this.buttonPrivacy);
             this.Controls.Add(this.buttonReview);
             this.Controls.Add(this.buttonStart);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainForm";

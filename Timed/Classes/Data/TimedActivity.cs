@@ -1,11 +1,7 @@
-﻿using System;
-
-namespace Timed.Classes
+﻿namespace Timed.Classes.Data
 {
     public class TimedActivity
     {
-        //Properties
-
         public string ProjectName { get; set; }
 
         public string Name { get; set; }

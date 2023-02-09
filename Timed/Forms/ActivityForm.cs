@@ -1,142 +1,98 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Runtime.InteropServices;
 using Timed.Classes;
+using Timed.Classes.Data;
 
 namespace Timed.Forms
 {
     public partial class ActivityForm : Form
     {
-        //Constants
+        // Constants
 
-        private readonly TimeSpan idleThreshold = new TimeSpan(0, 0, 20);
+        private readonly TimeSpan idleThreshold = new(0, 0, 20);
 
-        private readonly TimeSpan idleThresholdForPopup = new TimeSpan(0, 3, 0);
+        private readonly TimeSpan idleThresholdForPopup = new(0, 3, 0);
 
-        //Nested Classes
+        // Nested Classes
 
-        private class EndTime
+        private class PresetEndTime
         {
-            //Fields
+            public int Minutes { get; }
 
-            public TimeSpan? SpecialEndTimeSpan { get; } = null;
-
-            private readonly DateTime dateTime;
-
-            public DateTime DateTime 
+            public PresetEndTime(int minutes)
             {
-                get
-                {
-                    if (SpecialEndTimeSpan != null)
-                    {
-                        return DateTime.UtcNow - (TimeSpan)SpecialEndTimeSpan;
-                    }
-                    else
-                    {
-                        return dateTime;
-                    }
-                }
+                Minutes = minutes;
             }
-
-            //Constructor
-
-            public EndTime(TimeSpan timeSpan)
-            {
-                SpecialEndTimeSpan = timeSpan;
-            }
-
-            public EndTime(DateTime dateTime)
-            {
-                this.dateTime = dateTime;
-            }
-
-            //Public Overrides
 
             public override string ToString()
             {
-                if (SpecialEndTimeSpan != null)
+                if (Minutes == 0)
                 {
-                    switch (((TimeSpan)SpecialEndTimeSpan).Minutes)
-                    {
-                        case 0:
-                            return "Now";
-
-                        default:
-                            return $"{((TimeSpan)SpecialEndTimeSpan).Minutes} minutes ago";
-                    }
+                    return "Now";
                 }
                 else
                 {
-                    return GetUIFriendlyTimeSpent(DateTime.UtcNow - DateTime) + " ago";
+                    return $"{Minutes} minutes ago";
                 }
             }
-
         }
 
-        //Static Flags
+        private class EndTime
+        {
+            internal DateTime DateTime { get; }
 
-        private static bool systemTrayHasPoppedUpHelp = false;
+            public EndTime(DateTime dateTime)
+            {
+                DateTime = dateTime;
+            }
 
-        //Fields
+            public override string ToString()
+            {
+                TimeSpan timeSpan = DateTime.UtcNow - DateTime;
+                return $"{timeSpan.UIFriendlyToString()} ago";
+            }
+        }
+
+        // Static Flags
+
+        private static bool hasOneOffTutorialMessagePopped = false;
+
+        // Fields
 
         private readonly MainForm mainForm;
-        private readonly string projectName;
-        private readonly string activityName;
+        private readonly TimedActivity timedActivity;
 
-        private readonly DateTime startTime;
-
-        /// <summary>
-        /// Set to true when the application intended the form to close
-        /// </summary>
-        private bool plannedClose = false;
-
-        private List<EndTime> endTimes = new List<EndTime>();
-
+        private bool closingFormDueToTaskEnded = false;
         private bool userInactive = false;
         private bool nagGiven = false;
 
         //Constructor
 
-        public ActivityForm(string projectName, string activityName, MainForm mainForm, DateTime startTime)
+        public ActivityForm(TimedActivity timedActivity, MainForm mainForm)
         {
-            //Store the main form and initialise
+            this.timedActivity = timedActivity;
             this.mainForm = mainForm;
-            this.projectName = projectName;
-            this.activityName = activityName;
-            InitializeComponent();
 
-            //Store the start time
-            this.startTime = startTime;
+            InitializeComponent();
 
             //Add the preset times to the list
             for (int i = 0; i < 6; i++)
             {
-                listBoxPresetEndOptions.Items.Add(new EndTime(new TimeSpan(0, i, 0)));
+                listBoxPresetEndOptions.Items.Add(new PresetEndTime(i));
             }
-            for (int i = 10; i < 35; i+=5)
+            for (int i = 10; i < 35; i += 5)
             {
-                listBoxPresetEndOptions.Items.Add(new EndTime(new TimeSpan(0, i, 0)));
+                listBoxPresetEndOptions.Items.Add(new PresetEndTime(i));
             }
         }
 
-        /// <summary>
-        /// This UI work needs to be done here instead of the constructor
-        /// </summary>
         private void ActivityForm_Load(object sender, EventArgs e)
         {
-            //Show the tray Icon
             notifyIcon.Visible = true;
+            notifyIcon.Text = $"{timedActivity.ProjectName} - {timedActivity.Name}";
 
-            notifyIcon.Text = $"{projectName} - {activityName}";
-
-            //Display the help (as appropriate, it fires one time per life of the application)
-            if (!systemTrayHasPoppedUpHelp)
+            if (!hasOneOffTutorialMessagePopped)
             {
-                systemTrayHasPoppedUpHelp = true;
+                hasOneOffTutorialMessagePopped = true;
                 notifyIcon.ShowBalloonTip(10000, "Timed icon will hide in your system tray", "Start working and then click the icon when you're finished", ToolTipIcon.Info);
             }
 
@@ -144,199 +100,136 @@ namespace Timed.Forms
         }
 
         //UI Events
-        
-        /// <summary>
-        /// The user is wanting to bring back the form from the system tray
-        /// </summary>
+
         private void NotifyIcon_MouseClick(object sender, MouseEventArgs e)
         {
-            BringBackTheForm(false);
+            BringBackTheForm(shakeNotification: false);
         }
 
-        /// <summary>
-        /// Timer ticks to keep the form up to date and monitor inactivity
-        /// </summary>
         private void Timer_Tick(object sender, EventArgs e)
         {
-            //Get the time spent
-            TimeSpan timeSpan = DateTime.UtcNow - startTime;
+            TimeSpan timeSpan = DateTime.UtcNow - timedActivity.Start;
 
-            //Update the label
-            labelSummary.Text = $"Project: {projectName}{Environment.NewLine}Activity: {activityName}{Environment.NewLine}Time Spent: {GetUIFriendlyTimeSpent(timeSpan)}";
+            labelSummary.Text = $"Project: {timedActivity.ProjectName}" +
+                                $"{Environment.NewLine}Activity: {timedActivity.Name}" +
+                                $"{Environment.NewLine}Time Spent: {timeSpan.UIFriendlyToString()}";
 
-            //Check for Inactivity
             CheckInactivity();
         }
 
-        /// <summary>
-        /// The user could be minimising the form and if so hide it
-        /// </summary>
         private void ActivityForm_Resize(object sender, EventArgs e)
         {
-            if (WindowState == FormWindowState.Minimized)
-            {
-                Hide();
+            bool userHasMinimisedForm = WindowState == FormWindowState.Minimized;
 
-                //Show the tray Icon
-                notifyIcon.Visible = true;
+            if (!userHasMinimisedForm)
+            {
+                return;
             }
+
+            Hide();
+            notifyIcon.Visible = true;
         }
 
-        /// <summary>
-        /// The user is wanting to finish the task
-        /// </summary>
         private void ListBoxEndTimeOptions_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (listBoxEndTimeOptions.SelectedItem != null)
+            if (listBoxEndTimeOptions.SelectedItem == null)
             {
-                EndTime endTime = (EndTime)listBoxEndTimeOptions.SelectedItem;
-
-                TimedActivity timedActivity = new TimedActivity()
-                {
-                    ProjectName = projectName,
-                    Name = activityName,
-                    Start = startTime,
-                    End = endTime.DateTime
-                };
-
-                mainForm.TaskFinished(timedActivity);
-
-                plannedClose = true;
-                Close();
+                return;
             }
+
+            EndTime endTime = (EndTime)listBoxEndTimeOptions.SelectedItem;
+
+            ActivityFinished(endTime.DateTime);
         }
 
         private void ListBoxPresetEndOptions_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (listBoxPresetEndOptions.SelectedItem != null)
+            if (listBoxPresetEndOptions.SelectedItem == null)
             {
-                EndTime endTime = (EndTime)listBoxPresetEndOptions.SelectedItem;
+                return;
+            }
 
-                if (endTime.DateTime < startTime)
-                {
-                    MessageBox.Show("You've not spent this much time on the task yet", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+            PresetEndTime presetEndTime = (PresetEndTime)listBoxPresetEndOptions.SelectedItem;
+            DateTime endTime = DateTime.UtcNow.AddMinutes(-presetEndTime.Minutes);
+            bool tryingToEndActivityBeforeItStarted = timedActivity.Start > endTime;
+            if (tryingToEndActivityBeforeItStarted)
+            {
+                MessageBox.Show("You've not spent this much time on the task yet", "Cancelled", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
-                TimedActivity timedActivity = new TimedActivity()
-                {
-                    ProjectName = projectName,
-                    Name = activityName,
-                    Start = startTime,
-                    End = endTime.DateTime
-                };
+            ActivityFinished(endTime);
+        }
 
-                mainForm.TaskFinished(timedActivity);
+        private void ActivityForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (closingFormDueToTaskEnded)
+            {
+                return;
+            }
 
-                plannedClose = true;
-                Close();
+            if (closingFormDueToUserConfirmedTheyWantToExit)
+            {
+                Application.Exit();
+                return;
+            }
+
+            DialogResult dialogResult = MessageBox.Show("This will close the whole application and your activity won't be saved. If you want to keep working, minimise the form instead." + Environment.NewLine + Environment.NewLine + "Do you want to close the application?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+
+            if (dialogResult == DialogResult.Yes)
+            {
+                closingFormDueToUserConfirmedTheyWantToExit = true;
+                Application.Exit();
+            }
+            else
+            {
+                e.Cancel = true;
             }
         }
 
-
-        //Private Methods
+        // Private Methods
 
         [DllImport("user32.dll")]
         static extern bool FlashWindow(IntPtr hwnd, bool bInvert);
 
         private void BringBackTheForm(bool shakeNotification)
         {
-
-            //Show the form
             Show();
-
-            //Set the window state to normal
             WindowState = FormWindowState.Normal;
-
-            //Set the form to the top
             TopMost = true;
-
-            //Set the focus on this form
             Focus();
-
-            //Hide the tray Icon
             notifyIcon.Visible = false;
-
-            //Shake as appropriate
+            
             if (shakeNotification)
             {
                 FlashWindow(Handle, true);
             }
         }
 
-        public static string GetUIFriendlyTimeSpent(TimeSpan timeSpan)
-        {
-            StringBuilder stringBuilder = new StringBuilder();
+        bool closingFormDueToUserConfirmedTheyWantToExit = false;
 
-            if (timeSpan.TotalHours > 1)
-            {
-                stringBuilder.Append($"{Math.Truncate(timeSpan.TotalHours)} hours, ");
-            }
-
-            if (timeSpan.TotalMinutes > 1)
-            {
-                stringBuilder.Append($"{timeSpan.Minutes} minutes, ");
-            }
-
-            stringBuilder.Append($"{timeSpan.Seconds} seconds");
-
-            return stringBuilder.ToString();
-        }
-
-        bool alreadyWantToClose = false;
-
-        private void ActivityForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (!plannedClose)
-            {
-                if (alreadyWantToClose)
-                {
-                    Application.Exit();
-                    return;
-                }
-
-                DialogResult dialogResult = MessageBox.Show("This will close the whole application and your activity won't be saved. If you want to keep working, minimise the form instead." + Environment.NewLine + Environment.NewLine + "Do you want to close the application?", "Are you sure?", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-
-                if (dialogResult == DialogResult.Yes)
-                {
-                    alreadyWantToClose = true;
-                    Application.Exit();
-                }
-                else
-                {
-                    e.Cancel = true;
-                }
-            }
-        }
 
         private void CheckInactivity()
         {
-            //Fetch when the user last interacted with the system
             TimeSpan idleTime = TimeSpan.FromMilliseconds(IdleTimeFinder.GetIdleTime());
 
-            //Determine whether the user is considered inactive
             bool userConsideredInactive = (idleTime > idleThreshold);
-            
+
             //If the user is now considered inactive when they were active before
             if (userConsideredInactive && !userInactive)
             {
-                //Update the field with this change
                 userInactive = true;
 
-                //Create an end time and add it to the list
-                EndTime newEndTime = new EndTime(DateTime.UtcNow - idleTime);
-                endTimes.Add(newEndTime);
-                endTimes = endTimes.OrderByDescending(x => x.DateTime).ToList();
+                EndTime newEndTime = new(DateTime.UtcNow - idleTime);
+                
+                var holdingList = listBoxEndTimeOptions.Items;
                 listBoxEndTimeOptions.Items.Clear();
-                foreach (EndTime endTime in endTimes)
-                {
-                    listBoxEndTimeOptions.Items.Add(endTime);
-                }
+                listBoxEndTimeOptions.Items.Add(newEndTime);
+                listBoxEndTimeOptions.Items.AddRange(holdingList);
             }
             //If the user is now considered active when they were inactive before
             else if (!userConsideredInactive && userInactive)
             {
-                //Update the field with this change
                 userInactive = false;
                 nagGiven = false;
             }
@@ -353,12 +246,15 @@ namespace Timed.Forms
                     FlashWindow(Handle, true);
                 }
             }
-
-            for (int i = 0; i < listBoxEndTimeOptions.Items.Count; i++)
-            {
-                listBoxEndTimeOptions.Items[i] = listBoxEndTimeOptions.Items[i];
-            }
         }
 
+        private void ActivityFinished(DateTime end)
+        {
+            timedActivity.End = end;
+            mainForm.TaskFinished(timedActivity);
+
+            closingFormDueToTaskEnded = true;
+            Close();
+        }
     }
 }
