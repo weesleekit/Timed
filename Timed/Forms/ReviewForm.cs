@@ -149,7 +149,7 @@ namespace Timed.Forms
 
             foreach (var activity in sortedActivities)
             {
-                builder.Append($"{activity.Item2.ToString("hh\\:mm\\:ss")} ; {activity.Item1}");
+                builder.Append($"{activity.Item2.ToString("hh\\:mm\\:ss")} - {activity.Item1}");
                 builder.Append(Environment.NewLine);
             }
 
@@ -172,7 +172,7 @@ namespace Timed.Forms
                     totalTime = RoundUpTo15MinuteIncrements(totalTime);
                 }
 
-                string title = $"{projectName} - {name} - {totalTime.UIFriendlyToString()}";
+                string title = $"{projectName} - {name}";
                 returnList.Add(new (title, totalTime));
             }
 
@@ -194,7 +194,7 @@ namespace Timed.Forms
                     totalTime = RoundUpTo15MinuteIncrements(totalTime);
                 }
 
-                string title = $"${projectName} - {totalTime.UIFriendlyToString()}";
+                string title = $"{projectName}";
                 returnList.Add(new(title, totalTime));
             }
 

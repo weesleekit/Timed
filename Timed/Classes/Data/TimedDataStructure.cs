@@ -11,6 +11,7 @@ namespace Timed.Classes.Data
 
         // Properties
 
+        [JsonProperty]
         internal List<TimedActivity> TimedActivities { get; private set; } = new List<TimedActivity>();
 
         // Constructor
