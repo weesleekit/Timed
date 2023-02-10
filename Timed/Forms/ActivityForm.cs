@@ -84,12 +84,6 @@ namespace Timed.Forms
             {
                 listBoxPresetEndOptions.Items.Add(new PresetEndTime(i));
             }
-
-
-
-            EndTime newEndTime = new(DateTime.UtcNow );
-
-            listBoxEndTimeOptions.Items.Insert(0, newEndTime);
         }
 
         private void ActivityForm_Load(object sender, EventArgs e)
