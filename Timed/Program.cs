@@ -14,14 +14,8 @@ namespace Timed
             // see https://aka.ms/applicationconfiguration.
 
             ApplicationConfiguration.Initialize();
-            try
-            {
-                Application.Run(new MainForm());
-            }
-            catch
-            {
-
-            }
+            
+            Application.Run(new MainForm());
         }
     }
 }

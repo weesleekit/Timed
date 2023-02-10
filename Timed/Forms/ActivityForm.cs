@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using System.Windows.Forms;
 using Timed.Classes;
 using Timed.Classes.Data;
 
@@ -83,6 +84,12 @@ namespace Timed.Forms
             {
                 listBoxPresetEndOptions.Items.Add(new PresetEndTime(i));
             }
+
+
+
+            EndTime newEndTime = new(DateTime.UtcNow );
+
+            listBoxEndTimeOptions.Items.Insert(0, newEndTime);
         }
 
         private void ActivityForm_Load(object sender, EventArgs e)
@@ -113,6 +120,11 @@ namespace Timed.Forms
             labelSummary.Text = $"Project: {timedActivity.ProjectName}" +
                                 $"{Environment.NewLine}Activity: {timedActivity.Name}" +
                                 $"{Environment.NewLine}Time Spent: {timeSpan.UIFriendlyToString()}";
+
+            for (int i = 0; i < listBoxEndTimeOptions.Items.Count; i++)
+            {
+                listBoxEndTimeOptions.Items[i] = listBoxEndTimeOptions.Items[i];
+            }
 
             CheckInactivity();
         }
@@ -222,10 +234,7 @@ namespace Timed.Forms
 
                 EndTime newEndTime = new(DateTime.UtcNow - idleTime);
                 
-                var holdingList = listBoxEndTimeOptions.Items;
-                listBoxEndTimeOptions.Items.Clear();
-                listBoxEndTimeOptions.Items.Add(newEndTime);
-                listBoxEndTimeOptions.Items.AddRange(holdingList);
+                listBoxEndTimeOptions.Items.Insert(0, newEndTime);
             }
             //If the user is now considered active when they were inactive before
             else if (!userConsideredInactive && userInactive)
