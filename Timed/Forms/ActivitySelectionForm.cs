@@ -187,11 +187,11 @@ namespace Timed.Forms
             IEnumerable<TimedActivity> timedActivities;
             if (projectName == null)
             {
-                timedActivities = mainForm.TimedDataStructure.TimedActivities.OrderBy(x => x.End);
+                timedActivities = mainForm.TimedDataStructure.TimedActivities.OrderByDescending(x => x.End);
             }
             else
             {
-                timedActivities = mainForm.TimedDataStructure.TimedActivities.Where(x => x.ProjectName == projectName).OrderBy(x => x.End);
+                timedActivities = mainForm.TimedDataStructure.TimedActivities.Where(x => x.ProjectName == projectName).OrderByDescending(x => x.End);
             }
 
             listBoxPreviousActivities.Items.Clear();
