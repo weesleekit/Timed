@@ -1,14 +1,11 @@
-﻿using Timed.Classes;
+﻿using System;
+using Timed.Classes;
 using Timed.Classes.Data;
 
 namespace Timed.Forms
 {
     public partial class MainForm : Form
     {
-        // Constants
-
-        private double minNumberOfSecondsForResumeOption = 30;
-
         // Fields
 
         internal TimedDataStructure TimedDataStructure { get; }
@@ -84,29 +81,46 @@ namespace Timed.Forms
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private void TimerUIRefresh_Tick(object sender, EventArgs e)
+        {
+            RefreshUI();
+        }
+
         //Public Methods
 
         internal void TaskFinished(TimedActivity timedActivity)
         {
+            if (buttonStart.Location.Y < buttonResume.Location.Y)
+            {
+                var temp = buttonStart.Location;
+                buttonStart.Location = buttonResume.Location;
+                buttonResume.Location = temp;
+            }
+
+            buttonResume.Select();
+
             TimedDataStructure?.AddActivity(timedActivity);
 
-            TimeSpan timeSpan = DateTime.UtcNow - timedActivity.End;
-
-            //Set up the UI as appropriate
-            if (timeSpan.TotalSeconds > minNumberOfSecondsForResumeOption)
-            {
-                resumePoint = timedActivity.End;
-                buttonResume.Text = $"Start New Task Starting from {timeSpan.UIFriendlyToString()}";
-                buttonResume.Enabled = true;
-            }
-            else
-            {
-                resumePoint = null;
-                buttonResume.Text = "";
-                buttonResume.Enabled = false;
-            }
+            resumePoint = timedActivity.End;
+            RefreshUI();
 
             Show();
+        }
+
+        // Private Methods
+
+        private void RefreshUI()
+        {
+            if (resumePoint == null)
+            {
+                buttonResume.Text = "";
+                buttonResume.Enabled = false;
+                return;
+            }
+
+            TimeSpan timeSpan = DateTime.UtcNow - resumePoint.Value;
+            buttonResume.Text = $"Start New Task {Environment.NewLine} from {timeSpan.UIFriendlyToString()} ago";
+            buttonResume.Enabled = true;
         }
     }
 }

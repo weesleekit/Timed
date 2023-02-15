@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.buttonStart = new System.Windows.Forms.Button();
             this.buttonReview = new System.Windows.Forms.Button();
             this.buttonPrivacy = new System.Windows.Forms.Button();
             this.buttonResume = new System.Windows.Forms.Button();
             this.buttonEditDatabase = new System.Windows.Forms.Button();
+            this.timerUIRefresh = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // buttonStart
@@ -42,7 +44,7 @@
             this.buttonStart.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(180, 63);
-            this.buttonStart.TabIndex = 1;
+            this.buttonStart.TabIndex = 2;
             this.buttonStart.Text = "Start New Task\r\nFrom Now";
             this.buttonStart.UseVisualStyleBackColor = true;
             this.buttonStart.Click += new System.EventHandler(this.ButtonStart_Click);
@@ -76,8 +78,7 @@
             this.buttonResume.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonResume.Name = "buttonResume";
             this.buttonResume.Size = new System.Drawing.Size(180, 63);
-            this.buttonResume.TabIndex = 2;
-            this.buttonResume.Text = "Start New Task \r\nFrom Before";
+            this.buttonResume.TabIndex = 1;
             this.buttonResume.UseVisualStyleBackColor = true;
             this.buttonResume.Click += new System.EventHandler(this.ButtonResume_Click);
             // 
@@ -91,6 +92,12 @@
             this.buttonEditDatabase.Text = "Edit Database";
             this.buttonEditDatabase.UseVisualStyleBackColor = true;
             this.buttonEditDatabase.Click += new System.EventHandler(this.ButtonEditDatabase_Click);
+            // 
+            // timerUIRefresh
+            // 
+            this.timerUIRefresh.Enabled = true;
+            this.timerUIRefresh.Interval = 1000;
+            this.timerUIRefresh.Tick += new System.EventHandler(this.TimerUIRefresh_Tick);
             // 
             // MainForm
             // 
@@ -122,5 +129,6 @@
         private System.Windows.Forms.Button buttonPrivacy;
         private System.Windows.Forms.Button buttonResume;
         private Button buttonEditDatabase;
+        private System.Windows.Forms.Timer timerUIRefresh;
     }
 }
