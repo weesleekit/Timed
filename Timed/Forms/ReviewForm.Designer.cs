@@ -46,7 +46,7 @@
             this.dateTimePickerStart.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dateTimePickerStart.Name = "dateTimePickerStart";
             this.dateTimePickerStart.Size = new System.Drawing.Size(162, 23);
-            this.dateTimePickerStart.TabIndex = 0;
+            this.dateTimePickerStart.TabIndex = 3;
             this.dateTimePickerStart.ValueChanged += new System.EventHandler(this.DateTimePickers_ValueChanged);
             // 
             // dateTimePickerEnd
@@ -55,7 +55,7 @@
             this.dateTimePickerEnd.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.dateTimePickerEnd.Name = "dateTimePickerEnd";
             this.dateTimePickerEnd.Size = new System.Drawing.Size(157, 23);
-            this.dateTimePickerEnd.TabIndex = 1;
+            this.dateTimePickerEnd.TabIndex = 4;
             this.dateTimePickerEnd.ValueChanged += new System.EventHandler(this.DateTimePickers_ValueChanged);
             // 
             // label1
@@ -85,7 +85,7 @@
             this.checkBoxRound.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxRound.Name = "checkBoxRound";
             this.checkBoxRound.Size = new System.Drawing.Size(195, 19);
-            this.checkBoxRound.TabIndex = 5;
+            this.checkBoxRound.TabIndex = 6;
             this.checkBoxRound.Text = "Round up to 15 minute intervals";
             this.checkBoxRound.UseVisualStyleBackColor = true;
             this.checkBoxRound.CheckedChanged += new System.EventHandler(this.CheckBox_CheckedChanged);
@@ -99,8 +99,8 @@
             this.textBoxOutput.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.textBoxOutput.Multiline = true;
             this.textBoxOutput.Name = "textBoxOutput";
-            this.textBoxOutput.Size = new System.Drawing.Size(549, 274);
-            this.textBoxOutput.TabIndex = 6;
+            this.textBoxOutput.Size = new System.Drawing.Size(666, 324);
+            this.textBoxOutput.TabIndex = 7;
             // 
             // checkBoxMergeProjectTasks
             // 
@@ -109,7 +109,7 @@
             this.checkBoxMergeProjectTasks.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.checkBoxMergeProjectTasks.Name = "checkBoxMergeProjectTasks";
             this.checkBoxMergeProjectTasks.Size = new System.Drawing.Size(177, 19);
-            this.checkBoxMergeProjectTasks.TabIndex = 7;
+            this.checkBoxMergeProjectTasks.TabIndex = 5;
             this.checkBoxMergeProjectTasks.Text = "Merge project tasks together";
             this.checkBoxMergeProjectTasks.UseVisualStyleBackColor = true;
             this.checkBoxMergeProjectTasks.CheckedChanged += new System.EventHandler(this.CheckBox_CheckedChanged);
@@ -120,7 +120,7 @@
             this.buttonPrevious.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonPrevious.Name = "buttonPrevious";
             this.buttonPrevious.Size = new System.Drawing.Size(34, 27);
-            this.buttonPrevious.TabIndex = 8;
+            this.buttonPrevious.TabIndex = 1;
             this.buttonPrevious.Text = "<";
             this.buttonPrevious.UseVisualStyleBackColor = true;
             this.buttonPrevious.Click += new System.EventHandler(this.ButtonPrevious_Click);
@@ -131,7 +131,7 @@
             this.buttonNext.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(34, 27);
-            this.buttonNext.TabIndex = 9;
+            this.buttonNext.TabIndex = 2;
             this.buttonNext.Text = ">";
             this.buttonNext.UseVisualStyleBackColor = true;
             this.buttonNext.Click += new System.EventHandler(this.ButtonNext_Click);
@@ -140,7 +140,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(581, 352);
+            this.ClientSize = new System.Drawing.Size(698, 402);
             this.Controls.Add(this.buttonNext);
             this.Controls.Add(this.buttonPrevious);
             this.Controls.Add(this.checkBoxMergeProjectTasks);
@@ -156,6 +156,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Time Spent Review";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ReviewForm_FormClosing);
+            this.Load += new System.EventHandler(this.ReviewForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -33,6 +33,8 @@
             this.textBoxProjectName = new System.Windows.Forms.TextBox();
             this.textBoxActivityName = new System.Windows.Forms.TextBox();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBoxDuration = new System.Windows.Forms.TextBox();
             this.buttonSaveAllRecords = new System.Windows.Forms.Button();
             this.dateTimePickerEnd = new System.Windows.Forms.DateTimePicker();
             this.label4 = new System.Windows.Forms.Label();
@@ -66,7 +68,7 @@
             this.textBoxProjectName.Location = new System.Drawing.Point(113, 70);
             this.textBoxProjectName.Name = "textBoxProjectName";
             this.textBoxProjectName.Size = new System.Drawing.Size(274, 23);
-            this.textBoxProjectName.TabIndex = 1;
+            this.textBoxProjectName.TabIndex = 3;
             // 
             // textBoxActivityName
             // 
@@ -75,7 +77,7 @@
             this.textBoxActivityName.Location = new System.Drawing.Point(113, 99);
             this.textBoxActivityName.Name = "textBoxActivityName";
             this.textBoxActivityName.Size = new System.Drawing.Size(274, 23);
-            this.textBoxActivityName.TabIndex = 2;
+            this.textBoxActivityName.TabIndex = 4;
             // 
             // splitContainer1
             // 
@@ -89,6 +91,8 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.label5);
+            this.splitContainer1.Panel2.Controls.Add(this.textBoxDuration);
             this.splitContainer1.Panel2.Controls.Add(this.buttonSaveAllRecords);
             this.splitContainer1.Panel2.Controls.Add(this.dateTimePickerEnd);
             this.splitContainer1.Panel2.Controls.Add(this.label4);
@@ -103,12 +107,31 @@
             this.splitContainer1.SplitterDistance = 397;
             this.splitContainer1.TabIndex = 3;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(14, 189);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(53, 15);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Duration";
+            // 
+            // textBoxDuration
+            // 
+            this.textBoxDuration.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxDuration.Enabled = false;
+            this.textBoxDuration.Location = new System.Drawing.Point(113, 186);
+            this.textBoxDuration.Name = "textBoxDuration";
+            this.textBoxDuration.Size = new System.Drawing.Size(274, 23);
+            this.textBoxDuration.TabIndex = 7;
+            // 
             // buttonSaveAllRecords
             // 
             this.buttonSaveAllRecords.Location = new System.Drawing.Point(141, 12);
             this.buttonSaveAllRecords.Name = "buttonSaveAllRecords";
             this.buttonSaveAllRecords.Size = new System.Drawing.Size(121, 41);
-            this.buttonSaveAllRecords.TabIndex = 10;
+            this.buttonSaveAllRecords.TabIndex = 2;
             this.buttonSaveAllRecords.Text = "Save Names\r\n(Affect all records)";
             this.buttonSaveAllRecords.UseVisualStyleBackColor = true;
             this.buttonSaveAllRecords.Click += new System.EventHandler(this.ButtonSaveAllRecords_Click);
@@ -122,8 +145,9 @@
             this.dateTimePickerEnd.Location = new System.Drawing.Point(113, 157);
             this.dateTimePickerEnd.Name = "dateTimePickerEnd";
             this.dateTimePickerEnd.Size = new System.Drawing.Size(274, 23);
-            this.dateTimePickerEnd.TabIndex = 9;
+            this.dateTimePickerEnd.TabIndex = 6;
             this.dateTimePickerEnd.Value = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
+            this.dateTimePickerEnd.ValueChanged += new System.EventHandler(this.DateTimePickers_ValueChanged);
             // 
             // label4
             // 
@@ -131,7 +155,7 @@
             this.label4.Location = new System.Drawing.Point(14, 163);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(27, 15);
-            this.label4.TabIndex = 8;
+            this.label4.TabIndex = 0;
             this.label4.Text = "End";
             // 
             // label3
@@ -140,7 +164,7 @@
             this.label3.Location = new System.Drawing.Point(14, 134);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(31, 15);
-            this.label3.TabIndex = 7;
+            this.label3.TabIndex = 0;
             this.label3.Text = "Start";
             // 
             // dateTimePickerStart
@@ -152,8 +176,9 @@
             this.dateTimePickerStart.Location = new System.Drawing.Point(113, 128);
             this.dateTimePickerStart.Name = "dateTimePickerStart";
             this.dateTimePickerStart.Size = new System.Drawing.Size(274, 23);
-            this.dateTimePickerStart.TabIndex = 6;
+            this.dateTimePickerStart.TabIndex = 5;
             this.dateTimePickerStart.Value = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
+            this.dateTimePickerStart.ValueChanged += new System.EventHandler(this.DateTimePickers_ValueChanged);
             // 
             // label2
             // 
@@ -161,7 +186,7 @@
             this.label2.Location = new System.Drawing.Point(14, 102);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(82, 15);
-            this.label2.TabIndex = 5;
+            this.label2.TabIndex = 0;
             this.label2.Text = "Activity Name";
             // 
             // label1
@@ -170,7 +195,7 @@
             this.label1.Location = new System.Drawing.Point(14, 73);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(79, 15);
-            this.label1.TabIndex = 4;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Project Name";
             // 
             // buttonSaveOnly
@@ -178,8 +203,8 @@
             this.buttonSaveOnly.Location = new System.Drawing.Point(14, 12);
             this.buttonSaveOnly.Name = "buttonSaveOnly";
             this.buttonSaveOnly.Size = new System.Drawing.Size(121, 41);
-            this.buttonSaveOnly.TabIndex = 3;
-            this.buttonSaveOnly.Text = "Save all fields\r\n(Just this record)";
+            this.buttonSaveOnly.TabIndex = 1;
+            this.buttonSaveOnly.Text = "Save only \r\nthis record";
             this.buttonSaveOnly.UseVisualStyleBackColor = true;
             this.buttonSaveOnly.Click += new System.EventHandler(this.ButtonSaveOnlyOne_Click);
             // 
@@ -216,5 +241,7 @@
         private Label label4;
         private Label label3;
         private Button buttonSaveAllRecords;
+        private Label label5;
+        private TextBox textBoxDuration;
     }
 }

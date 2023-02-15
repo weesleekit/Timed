@@ -42,7 +42,7 @@
             this.buttonStart.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonStart.Name = "buttonStart";
             this.buttonStart.Size = new System.Drawing.Size(180, 63);
-            this.buttonStart.TabIndex = 0;
+            this.buttonStart.TabIndex = 1;
             this.buttonStart.Text = "Start New Task\r\nFrom Now";
             this.buttonStart.UseVisualStyleBackColor = true;
             this.buttonStart.Click += new System.EventHandler(this.ButtonStart_Click);
@@ -53,7 +53,7 @@
             this.buttonReview.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonReview.Name = "buttonReview";
             this.buttonReview.Size = new System.Drawing.Size(180, 63);
-            this.buttonReview.TabIndex = 1;
+            this.buttonReview.TabIndex = 4;
             this.buttonReview.Text = "Activity Report";
             this.buttonReview.UseVisualStyleBackColor = true;
             this.buttonReview.Click += new System.EventHandler(this.ButtonReview_Click);
@@ -64,7 +64,7 @@
             this.buttonPrivacy.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonPrivacy.Name = "buttonPrivacy";
             this.buttonPrivacy.Size = new System.Drawing.Size(180, 63);
-            this.buttonPrivacy.TabIndex = 2;
+            this.buttonPrivacy.TabIndex = 5;
             this.buttonPrivacy.Text = "Privacy Statement";
             this.buttonPrivacy.UseVisualStyleBackColor = true;
             this.buttonPrivacy.Click += new System.EventHandler(this.ButtonPrivacy_Click);
@@ -76,7 +76,7 @@
             this.buttonResume.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonResume.Name = "buttonResume";
             this.buttonResume.Size = new System.Drawing.Size(180, 63);
-            this.buttonResume.TabIndex = 3;
+            this.buttonResume.TabIndex = 2;
             this.buttonResume.Text = "Start New Task \r\nFrom Before";
             this.buttonResume.UseVisualStyleBackColor = true;
             this.buttonResume.Click += new System.EventHandler(this.ButtonResume_Click);
@@ -87,7 +87,7 @@
             this.buttonEditDatabase.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.buttonEditDatabase.Name = "buttonEditDatabase";
             this.buttonEditDatabase.Size = new System.Drawing.Size(180, 63);
-            this.buttonEditDatabase.TabIndex = 4;
+            this.buttonEditDatabase.TabIndex = 3;
             this.buttonEditDatabase.Text = "Edit Database";
             this.buttonEditDatabase.UseVisualStyleBackColor = true;
             this.buttonEditDatabase.Click += new System.EventHandler(this.ButtonEditDatabase_Click);

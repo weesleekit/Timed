@@ -26,6 +26,11 @@ namespace Timed.Forms
 
         // UI Events
 
+        private void ReviewForm_Load(object sender, EventArgs e)
+        {
+            checkBoxMergeProjectTasks.Select();
+        }
+
         private void ReviewForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             mainForm.Show();
@@ -140,7 +145,10 @@ namespace Timed.Forms
                             + Environment.NewLine
                             + "Time efficiency (time logged excluding breaks vs time logged including breaks) of " + efficiency.ToString("P1")
                             );
-            if (fulfillmentOfWorkingHoursExcludingBreaks < 1)
+            bool isOnlyReviewingToday = DateTime.Now.Date == from.Date &&
+                                    DateTime.Now.Date == to.Date;
+            bool notYetFulfilledWorkingDay = fulfillmentOfWorkingHoursExcludingBreaks < 1;
+            if (isOnlyReviewingToday && notYetFulfilledWorkingDay)
             {
                 builder.Append(Environment.NewLine);
                 double hoursStillToWork = workingHoursExcludingBreaks - timeWorked.TotalHours;
@@ -268,6 +276,5 @@ namespace Timed.Forms
 
             return workingHours;
         }
-
     }
 }
