@@ -102,6 +102,7 @@
             this.textBoxProject.Name = "textBoxProject";
             this.textBoxProject.Size = new System.Drawing.Size(288, 23);
             this.textBoxProject.TabIndex = 0;
+            this.textBoxProject.TextChanged += new System.EventHandler(this.TextBoxProject_TextChanged);
             this.textBoxProject.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxKeyDown);
             // 
             // textBoxName

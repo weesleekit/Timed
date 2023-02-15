@@ -13,6 +13,8 @@ namespace Timed.Forms
         
         private bool closingFormDueToTaskStarting = false;
 
+        private readonly string[] recentProjects;
+
         // Constructor
 
         public ActivitySelectionForm(MainForm mainForm, DateTime? resumePoint = null)
@@ -25,9 +27,9 @@ namespace Timed.Forms
                 startPoint = resumePoint.Value;
             }
 
-            IEnumerable<string> recentProjects = mainForm.TimedDataStructure.GetRecentProjects();
+            recentProjects = mainForm.TimedDataStructure.GetRecentProjects().ToArray();
 
-            listBoxPreviousProjects.Items.AddRange(recentProjects.ToArray());
+            listBoxPreviousProjects.Items.AddRange(recentProjects);
 
             UpdateRecentActivities(null);
         }
@@ -98,6 +100,11 @@ namespace Timed.Forms
             }
 
             mainForm.Show();
+        }
+
+        private void TextBoxProject_TextChanged(object sender, EventArgs e)
+        {
+            CheckForProjectFiltering();
         }
 
         private void ButtonLunch_Click(object sender, EventArgs e)
@@ -199,6 +206,23 @@ namespace Timed.Forms
 
             textBoxProject.Text = projectName;
             textBoxName.Focus();
+        }
+
+        private void CheckForProjectFiltering()
+        {
+            if (string.IsNullOrWhiteSpace(textBoxProject.Text))
+            {
+                listBoxPreviousProjects.Items.Clear();
+                listBoxPreviousProjects.Items.AddRange(recentProjects);
+                return;
+            }
+
+            string searchText = textBoxProject.Text;
+
+            string[] matchingProjects = recentProjects.Where(x => x.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).ToArray();
+            
+            listBoxPreviousProjects.Items.Clear();
+            listBoxPreviousProjects.Items.AddRange(matchingProjects);
         }
     }
 }
