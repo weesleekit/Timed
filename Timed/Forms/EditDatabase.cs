@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Timed.Classes;
 using Timed.Classes.Data;
 
 namespace Timed.Forms
@@ -112,6 +113,13 @@ namespace Timed.Forms
         {
             listBoxActivities.Items.Clear();
             listBoxActivities.Items.AddRange(mainForm.TimedDataStructure.TimedActivities.OrderByDescending(x => x.Start).ToArray());
+        }
+
+        private void DateTimePickers_ValueChanged(object sender, EventArgs e)
+        {
+            TimeSpan timeSpan = dateTimePickerEnd.Value - dateTimePickerStart.Value;
+
+            textBoxDuration.Text = timeSpan.UIFriendlyToString();
         }
     }
 }
