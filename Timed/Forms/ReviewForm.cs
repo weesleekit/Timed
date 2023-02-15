@@ -67,8 +67,7 @@ namespace Timed.Forms
             var relevantActivities = mainForm.TimedDataStructure.TimedActivities.Where(x => x.Start > from
                                                                                          && x.Start < to);
 
-            var relevantWorkingActivites = relevantActivities.Where(x => x.ProjectName != "Lunch"
-                                                                      && x.ProjectName != "Break");
+            var relevantWorkingActivites = relevantActivities.Where(x => x.ProjectName != "Break");
 
             IEnumerable<(string, TimeSpan)> summarisedWorkingActivities;
 
@@ -85,8 +84,7 @@ namespace Timed.Forms
 
             TimeSpan timeWorked = new(summarisedWorkingActivities.Select(x => x.Item2.Ticks).Sum());
 
-            TimeSpan timeTakenAsBreaks = new(relevantActivities.Where(x => x.ProjectName == "Lunch"
-                                                                                || x.ProjectName != "Break")
+            TimeSpan timeTakenAsBreaks = new(relevantActivities.Where(x => x.ProjectName == "Break")
                                                                        .Sum(x => (x.End - x.Start).Ticks));
 
             TimeSpan totalTimeSpent = timeWorked + timeTakenAsBreaks;
@@ -142,6 +140,13 @@ namespace Timed.Forms
                             + Environment.NewLine
                             + "Time efficiency (time logged excluding breaks vs time logged including breaks) of " + efficiency.ToString("P1")
                             );
+            if (fulfillmentOfWorkingHoursExcludingBreaks < 1)
+            {
+                builder.Append(Environment.NewLine);
+                double hoursStillToWork = workingHoursExcludingBreaks - timeWorked.TotalHours;
+                DateTime finishTime = DateTime.Now.AddHours(hoursStillToWork);
+                builder.Append($"Finish time of: {finishTime:t}");
+            }
             builder.Append(Environment.NewLine);
             builder.Append(Environment.NewLine);
 
@@ -224,9 +229,6 @@ namespace Timed.Forms
                         break;
 
                     case DayOfWeek.Friday:
-                        //workingHours += 7.5;
-                        //break;
-
                     case DayOfWeek.Saturday:
                     case DayOfWeek.Sunday:
                         //Do nothing
@@ -251,13 +253,10 @@ namespace Timed.Forms
                     case DayOfWeek.Tuesday:
                     case DayOfWeek.Wednesday:
                     case DayOfWeek.Thursday:
-                        workingHours += 8;
+                        workingHours += 7.5;
                         break;
 
                     case DayOfWeek.Friday:
-                    //workingHours += 7;
-                    //break;
-
                     case DayOfWeek.Saturday:
                     case DayOfWeek.Sunday:
                         //Do nothing

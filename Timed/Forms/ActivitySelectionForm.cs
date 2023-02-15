@@ -102,7 +102,7 @@ namespace Timed.Forms
 
         private void ButtonLunch_Click(object sender, EventArgs e)
         {
-            StartActivity("Lunch", "Lunch");
+            StartActivity("Break", "Lunch");
         }
 
         private void ButtonTeaBreak_Click(object sender, EventArgs e)
