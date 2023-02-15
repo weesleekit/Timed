@@ -68,6 +68,8 @@ namespace Timed.Forms
             RefreshUI();
 
             listBoxActivities.SelectedItem = timedActivity;
+
+            mainForm.TimedDataStructure.Save();
         }
 
         private void ButtonSaveAllRecords_Click(object sender, EventArgs e)
@@ -105,6 +107,8 @@ namespace Timed.Forms
             RefreshUI();
 
             listBoxActivities.SelectedItem = timedActivity;
+
+            mainForm.TimedDataStructure.Save();
         }
 
         // Private Methods
