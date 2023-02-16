@@ -51,6 +51,8 @@ namespace Timed.Forms
 
             textBoxProject.Text = listBoxPreviousProjects.Items[0].ToString();
 
+            listBoxPreviousProjects.Text = textBoxProject.Text;
+
             textBoxName.Select();
         }
 
