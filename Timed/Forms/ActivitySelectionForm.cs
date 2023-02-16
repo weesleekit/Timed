@@ -221,7 +221,7 @@ namespace Timed.Forms
                 timedActivities = mainForm.TimedDataStructure.TimedActivities.Where(x => x.ProjectName == projectName);
             }
 
-            timedActivities = timedActivities.DistinctBy(x => x.ToString()).OrderByDescending(x => x.End);
+            timedActivities = timedActivities.OrderByDescending(x => x.End).DistinctBy(x => x.ToString());
 
             listBoxPreviousActivities.Items.Clear();
             listBoxPreviousActivities.Items.AddRange(timedActivities.ToArray());
