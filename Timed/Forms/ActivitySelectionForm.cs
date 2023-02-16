@@ -99,15 +99,15 @@ namespace Timed.Forms
 
         private void ListBoxPreviousActivities_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (listBoxPreviousActivities.SelectedItem == null)
-            {
-                return;
-            }
+            //if (listBoxPreviousActivities.SelectedItem == null)
+            //{
+            //    return;
+            //}
 
-            TimedActivity recentActivity = (TimedActivity)listBoxPreviousActivities.SelectedItem;
+            //TimedActivity recentActivity = (TimedActivity)listBoxPreviousActivities.SelectedItem;
             
-            textBoxProject.Text = recentActivity.ProjectName;
-            textBoxName.Focus();
+            //textBoxProject.Text = recentActivity.ProjectName;
+            //textBoxName.Focus();
         }
 
         private void ActivitySelectionForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -212,12 +212,14 @@ namespace Timed.Forms
             IEnumerable<TimedActivity> timedActivities;
             if (projectName == null)
             {
-                timedActivities = mainForm.TimedDataStructure.TimedActivities.OrderByDescending(x => x.End);
+                timedActivities = mainForm.TimedDataStructure.TimedActivities;
             }
             else
             {
-                timedActivities = mainForm.TimedDataStructure.TimedActivities.Where(x => x.ProjectName == projectName).OrderByDescending(x => x.End);
+                timedActivities = mainForm.TimedDataStructure.TimedActivities.Where(x => x.ProjectName == projectName);
             }
+
+            timedActivities = timedActivities.DistinctBy(x => x.ToString()).OrderByDescending(x => x.End);
 
             listBoxPreviousActivities.Items.Clear();
             listBoxPreviousActivities.Items.AddRange(timedActivities.ToArray());
