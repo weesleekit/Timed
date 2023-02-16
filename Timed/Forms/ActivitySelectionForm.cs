@@ -221,6 +221,23 @@ namespace Timed.Forms
 
             string[] matchingProjects = recentProjects.Where(x => x.Contains(searchText, StringComparison.InvariantCultureIgnoreCase)).ToArray();
             
+            bool onlyOneResultThatExactlyMatches = matchingProjects.Length == 1 && matchingProjects[0].ToLower() == searchText.ToLower();
+            if (onlyOneResultThatExactlyMatches)
+            {
+                bool alreadyHasAllItems = matchingProjects.Length == listBoxPreviousProjects.Items.Count;
+                if (alreadyHasAllItems)
+                {
+                    return;
+                }
+
+                int topIndex = listBoxPreviousProjects.TopIndex;
+                listBoxPreviousProjects.Items.Clear();
+                listBoxPreviousProjects.Items.AddRange(recentProjects);
+                listBoxPreviousProjects.Text = matchingProjects[0];
+                listBoxPreviousProjects.TopIndex = topIndex;
+                return;
+            }
+
             listBoxPreviousProjects.Items.Clear();
             listBoxPreviousProjects.Items.AddRange(matchingProjects);
         }
