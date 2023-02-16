@@ -36,7 +36,25 @@ namespace Timed.Forms
 
         // UI Events
 
-        private void TextBoxKeyDown(object sender, KeyEventArgs e)
+
+        private void ProjectTextBoxKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Enter)
+            {
+                return;
+            }
+
+            if (textBoxName.Text != string.Empty)
+            {
+                ActivityNameTextBoxKeyDown(sender, e);
+            }
+
+            textBoxProject.Text = listBoxPreviousProjects.Items[0].ToString();
+
+            textBoxName.Select();
+        }
+
+        private void ActivityNameTextBoxKeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Enter)
             {

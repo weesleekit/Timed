@@ -103,7 +103,7 @@
             this.textBoxProject.Size = new System.Drawing.Size(288, 23);
             this.textBoxProject.TabIndex = 1;
             this.textBoxProject.TextChanged += new System.EventHandler(this.TextBoxProject_TextChanged);
-            this.textBoxProject.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxKeyDown);
+            this.textBoxProject.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ProjectTextBoxKeyDown);
             // 
             // textBoxName
             // 
@@ -113,7 +113,7 @@
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(288, 23);
             this.textBoxName.TabIndex = 2;
-            this.textBoxName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TextBoxKeyDown);
+            this.textBoxName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ActivityNameTextBoxKeyDown);
             // 
             // groupBox2
             // 
