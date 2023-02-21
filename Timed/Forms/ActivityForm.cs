@@ -174,6 +174,12 @@ namespace Timed.Forms
                 return;
             }
 
+            if (e.CloseReason == CloseReason.WindowsShutDown)
+            {
+                ActivityFinished(DateTime.UtcNow);
+                return;
+            }
+
             if (closingFormDueToUserConfirmedTheyWantToExit)
             {
                 Application.Exit();
