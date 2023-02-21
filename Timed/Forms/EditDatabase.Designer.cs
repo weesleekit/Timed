@@ -43,6 +43,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonSaveOnly = new System.Windows.Forms.Button();
+            this.buttonDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -68,7 +69,7 @@
             this.textBoxProjectName.Location = new System.Drawing.Point(113, 70);
             this.textBoxProjectName.Name = "textBoxProjectName";
             this.textBoxProjectName.Size = new System.Drawing.Size(274, 23);
-            this.textBoxProjectName.TabIndex = 3;
+            this.textBoxProjectName.TabIndex = 4;
             // 
             // textBoxActivityName
             // 
@@ -77,7 +78,7 @@
             this.textBoxActivityName.Location = new System.Drawing.Point(113, 99);
             this.textBoxActivityName.Name = "textBoxActivityName";
             this.textBoxActivityName.Size = new System.Drawing.Size(274, 23);
-            this.textBoxActivityName.TabIndex = 4;
+            this.textBoxActivityName.TabIndex = 5;
             // 
             // splitContainer1
             // 
@@ -91,6 +92,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.buttonDelete);
             this.splitContainer1.Panel2.Controls.Add(this.label5);
             this.splitContainer1.Panel2.Controls.Add(this.textBoxDuration);
             this.splitContainer1.Panel2.Controls.Add(this.buttonSaveAllRecords);
@@ -124,7 +126,7 @@
             this.textBoxDuration.Location = new System.Drawing.Point(113, 186);
             this.textBoxDuration.Name = "textBoxDuration";
             this.textBoxDuration.Size = new System.Drawing.Size(274, 23);
-            this.textBoxDuration.TabIndex = 7;
+            this.textBoxDuration.TabIndex = 8;
             // 
             // buttonSaveAllRecords
             // 
@@ -132,7 +134,7 @@
             this.buttonSaveAllRecords.Name = "buttonSaveAllRecords";
             this.buttonSaveAllRecords.Size = new System.Drawing.Size(121, 41);
             this.buttonSaveAllRecords.TabIndex = 2;
-            this.buttonSaveAllRecords.Text = "Save Names\r\n(Affect all records)";
+            this.buttonSaveAllRecords.Text = "Save Name Change for all records";
             this.buttonSaveAllRecords.UseVisualStyleBackColor = true;
             this.buttonSaveAllRecords.Click += new System.EventHandler(this.ButtonSaveAllRecords_Click);
             // 
@@ -145,7 +147,7 @@
             this.dateTimePickerEnd.Location = new System.Drawing.Point(113, 157);
             this.dateTimePickerEnd.Name = "dateTimePickerEnd";
             this.dateTimePickerEnd.Size = new System.Drawing.Size(274, 23);
-            this.dateTimePickerEnd.TabIndex = 6;
+            this.dateTimePickerEnd.TabIndex = 7;
             this.dateTimePickerEnd.Value = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
             this.dateTimePickerEnd.ValueChanged += new System.EventHandler(this.DateTimePickers_ValueChanged);
             // 
@@ -176,7 +178,7 @@
             this.dateTimePickerStart.Location = new System.Drawing.Point(113, 128);
             this.dateTimePickerStart.Name = "dateTimePickerStart";
             this.dateTimePickerStart.Size = new System.Drawing.Size(274, 23);
-            this.dateTimePickerStart.TabIndex = 5;
+            this.dateTimePickerStart.TabIndex = 6;
             this.dateTimePickerStart.Value = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
             this.dateTimePickerStart.ValueChanged += new System.EventHandler(this.DateTimePickers_ValueChanged);
             // 
@@ -204,9 +206,19 @@
             this.buttonSaveOnly.Name = "buttonSaveOnly";
             this.buttonSaveOnly.Size = new System.Drawing.Size(121, 41);
             this.buttonSaveOnly.TabIndex = 1;
-            this.buttonSaveOnly.Text = "Save only \r\nthis record";
+            this.buttonSaveOnly.Text = "Save record";
             this.buttonSaveOnly.UseVisualStyleBackColor = true;
             this.buttonSaveOnly.Click += new System.EventHandler(this.ButtonSaveOnlyOne_Click);
+            // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Location = new System.Drawing.Point(268, 12);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(121, 41);
+            this.buttonDelete.TabIndex = 3;
+            this.buttonDelete.Text = "Delete record";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
             // 
             // EditDatabase
             // 
@@ -243,5 +255,6 @@
         private Button buttonSaveAllRecords;
         private Label label5;
         private TextBox textBoxDuration;
+        private Button buttonDelete;
     }
 }

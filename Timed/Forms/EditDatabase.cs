@@ -111,6 +111,22 @@ namespace Timed.Forms
             mainForm.TimedDataStructure.Save();
         }
 
+        private void ButtonDelete_Click(object sender, EventArgs e)
+        {
+            if (listBoxActivities.SelectedItem == null)
+            {
+                return;
+            }
+
+            TimedActivity timedActivity = (TimedActivity)listBoxActivities.SelectedItem;
+
+            mainForm.TimedDataStructure.TimedActivities.Remove(timedActivity);
+
+            listBoxActivities.Items.Remove(timedActivity);
+
+            listBoxActivities.Text = listBoxActivities.Items[0].ToString();
+        }
+
         // Private Methods
 
         private void RefreshUI()
