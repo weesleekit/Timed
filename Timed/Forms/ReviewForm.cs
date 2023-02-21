@@ -18,7 +18,7 @@ namespace Timed.Forms
             mainForm = main;
             InitializeComponent();
 
-            dateTimePickerStart.Value = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            dateTimePickerStart.Value = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day);
             dateTimePickerEnd.Value = dateTimePickerStart.Value;
 
             UpdateUI();
@@ -145,14 +145,14 @@ namespace Timed.Forms
                             + Environment.NewLine
                             + "Time efficiency (time logged excluding breaks vs time logged including breaks) of " + efficiency.ToString("P1")
                             );
-            bool isOnlyReviewingToday = DateTime.Now.Date == from.Date &&
-                                    DateTime.Now.Date == to.Date;
+            bool isOnlyReviewingToday = DateTime.UtcNow.Date == from.Date &&
+                                    DateTime.UtcNow.Date == to.Date;
             bool notYetFulfilledWorkingDay = fulfillmentOfWorkingHoursExcludingBreaks < 1;
             if (isOnlyReviewingToday && notYetFulfilledWorkingDay)
             {
                 builder.Append(Environment.NewLine);
                 double hoursStillToWork = workingHoursExcludingBreaks - timeWorked.TotalHours;
-                DateTime finishTime = DateTime.Now.AddHours(hoursStillToWork);
+                DateTime finishTime = DateTime.UtcNow.AddHours(hoursStillToWork);
                 builder.Append($"Finish time of: {finishTime:t}");
             }
             builder.Append(Environment.NewLine);
