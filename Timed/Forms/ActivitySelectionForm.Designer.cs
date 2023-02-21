@@ -251,7 +251,7 @@
             this.buttonIFSAdmin.Name = "buttonIFSAdmin";
             this.buttonIFSAdmin.Size = new System.Drawing.Size(177, 23);
             this.buttonIFSAdmin.TabIndex = 11;
-            this.buttonIFSAdmin.Text = "IFS Admin: Timesheets/Expenses";
+            this.buttonIFSAdmin.Text = "IFS Admin";
             this.buttonIFSAdmin.UseVisualStyleBackColor = true;
             this.buttonIFSAdmin.Click += new System.EventHandler(this.ButtonIFSAdmin_Click);
             // 
