@@ -49,9 +49,12 @@ namespace Timed.Forms
                 ActivityNameTextBoxKeyDown(sender, e);
             }
 
-            textBoxProject.Text = listBoxPreviousProjects.Items[0].ToString();
+            if (listBoxPreviousProjects.Items.Count> 0)
+            {
+                textBoxProject.Text = listBoxPreviousProjects.Items[0].ToString();
 
-            listBoxPreviousProjects.Text = textBoxProject.Text;
+                listBoxPreviousProjects.Text = textBoxProject.Text;
+            }
 
             textBoxName.Select();
         }
