@@ -76,7 +76,7 @@ namespace Timed.Forms
                 Environment.NewLine + Environment.NewLine +
                 "This hook is not used to record your mouse movements or keyboard presses, it only knows when you were last inactive." +
                 Environment.NewLine + Environment.NewLine +
-                "This application is open source and can be found here https://github.com/jclark-sda/Timed/tree/master/Timed . If any of the above concerns you then you can easily download the source code, check it and compile it yourself.",
+                "This application is open source and can be found here https://github.com/weesleekit/Timed . If any of the above concerns you then you can easily download the source code, check it and compile it yourself.",
                 "Privacy Statement",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
